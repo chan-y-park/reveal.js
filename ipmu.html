@@ -1,0 +1,729 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Stroll along the Walls with Python &mdash; BPS spectra of supersymmetric theories</title>
+
+		<meta name="description" content="IPMU talk">
+		<meta name="author" content="Chan Y. Park">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/chan.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				TeX: {
+					Macros: {
+						cH: "{\\mathcal{H}}",
+						cP: "{\\mathcal{P}}",
+			 			cS: "{\\mathcal{S}}",
+			 			cK: "{\\mathcal{K}}",
+			 			cM: "{\\mathcal{M}}",
+			 			cN: "{\\mathcal{N}}",
+			 			cW: "{\\mathcal{W}}",
+			 			cX: "{\\mathcal{X}}",
+			 			SU: "{\\mathrm{SU}}",
+			 			SO: "{\\mathrm{SO}}",
+			 			fg: "{\\mathfrak{g}}",
+			 			ft: "{\\mathfrak{t}}",
+			 			gA: "{\\mathrm{A}}",
+			 			gD: "{\\mathrm{D}}",
+			 			gE: "{\\mathrm{E}}",
+			 			dd: "{\\mathrm{d}}",
+			 			ee: "{\\mathrm{e}}",
+			 			ii: "{\\mathrm{i}}",
+			 			bR: "{\\mathbb{R}}",
+			 			bS: "{\\mathbb{S}}",
+			 			bZ: "{\\mathbb{Z}}",
+			 		}
+				}
+			});
+		</script>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<style type="text/css">
+			/* OL { counter-reset: item }
+			OL LI { display: block }
+			OL LI:before { content: counters(item, ".") ". "; counter-increment: item } */
+			
+			#font_weight_normal {font-weight: normal;}
+			#texttt {font-family: "Courier New", Courier, monospace;}
+			#reference {color: blue;}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Stroll along the Walls with <span id="texttt">Python</span></h1>
+					<h3><span style="font-weight: normal;">BPS spectra of supersymmetric theories</span></h3>
+					<!--<br/>-->
+					<h3>Chan Y. Park</h3>
+					<h4>Rutgers University</h4>
+					<h4>Jan. 25, 2016 @ IPMU</h4>
+					<ul style="color:blue">
+						<li>P. Longhi, CYP, <a href="http://arxiv.org/abs/1601.02633">arXiv:1601.02633</a></li>
+						<li>P. Longhi, CYP, arXiv:16XX.XXXXX</li>
+							<ul>
+								<li><a href="http://het-math2.physics.rutgers.edu/loom/">http://het-math2.physics.rutgers.edu/loom/</a></li>
+								<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/loom</a></li>
+							</ul>
+						<li>P. Longhi, G. Moore, CYP, D. Park, work in progress</li>
+							<ul>
+								<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/mose</a></li>
+							</ul>
+					</ul>
+
+					<aside class="notes">
+						We can construct various real codimension-1 objects called walls in the moduli spaces of supersymmetric theories. For example, there are \(\mathcal{S}\)-walls that are used in the study of BPS spectra of 2d \(\mathcal{N}=(2,2)\) and 4d \(\mathcal{N}=2\) theories; \(\mathcal{K}\)-walls that can be defined in the moduli space of a 4d \(\mathcal{N}=2\) theory; and walls of marginal stability that appear in the moduli space of such a theory when it exhibits a wall-crossing phenomena. 
+
+						I will explain how to construct those objects and use them to study the BPS spectra of the supersymmetric theories. I will also describe their mathematical applications in studying the geometry of the moduli spaces of the supersymmetric theories.
+					</aside>
+				</section>
+
+				<section>
+					<h2>Experimental-Mathematical-Computational-Theoretical-Physics!</h2>
+					<ul>
+						<li>Recent development in both hardware and software of computational tools enabled us to study physical and mathematical problems by combining analytical and numerical methods together, which is proven to be complementary to the traditional pen-and-paper approach for various topics including</li>
+						<ul>
+							<li>Modern conformal bootstrap using crossing symmetry of 4pt function to derive bounds on spectrum in OPE of fields. <span id="reference">[Rattazzzi, Rychkov, Tonni, Vichi (2008)], ...</span></li>
+							<li>Using modular invariance of torus amplitude of 2d CFT to obtain bounds on spectrum <span id="reference">[Hellerman (2009)], ...</span></li>
+							<li>And many more...</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Why <span id="texttt">Python</span>?</h2>
+					<ul>
+						<li>Open-source</li>
+						<ul>
+							<li>Can look into what's going on in the box (if you want)</li>
+							<li>A type of software license that goes well with academic researches</li>
+						</ul>
+						<li>Active and helpful <span id="texttt">Python</span> community</li>
+						<li>Diverse and powerful libraries, including a suite of scientific libraries a.k.a <span id="texttt">ScyPy</span> stack</li>
+						<ul>
+							<li><span id="texttt">SymPy</span> for symbolic math</li>
+							<li><span id="texttt">NumPy</span> for numerical computation</li>
+							<li><span id="texttt">SciPy</span> for scientific computation</li>
+							<li><span id="texttt">matplotlib</span> for visualization</li>
+							<li>And more...</li>
+						</ul>
+						<li><span id="texttt">SAGE</span> for extensive math library</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Spectral network and class <span id="font_weight_normal">\(\mathcal{S}\)</span> theory</h2>
+					<ul>
+						<li><a href="http://het-math2.physics.rutgers.edu/loom/">http://het-math2.physics.rutgers.edu/loom/</a></li>
+						<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/loom</a></li>
+					</ul>
+					<iframe src="figures/loom_plots/pure_SU_3.html" style="width: 600px; height: 700px; float=left; vertical-align:middle;"></iframe>
+					<iframe src="figures/loom_plots/AD_from_pure_SU_3.html" style="width: 600px; height: 700px; float=left; vertical-align:middle;"></iframe>
+				</section>
+
+				<section>
+					<h2><span id="font_weight_normal">\(\mathcal{K}\)</span>-wall network and elliptic fibration</h2>
+					<ul>
+						<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/mose</a></li>
+					</ul>
+					<br/>
+					<img src="figures/mose_plots/K_wall_network_Nf_1_massless.gif" style="background:none; box-shadow:none; border:none; float=left; vertical-align:middle;"/>
+					<img src="figures/mose_plots/MS_walls_Nf_1_massless.png" style="background:none; border:none; box-shadow:none; float=right; vertical-align:middle;"/>
+				</section>
+
+				<section>
+					<h2>Outline</h2>
+					<ul>
+						<li>Introduction</li>
+						<li>Lightning review</li>
+						<li>\(\mathcal{S}\)-wall network</li>
+							<ul>
+								<li>Construction of ADE spectral network</li>
+								<li>BPS spectrum of pure gauge theory with \(G = \SU(N),\ \SO(2N),\ \gE_6,\ \gE_7\)</li>
+								<li>\(\gD_N\)-class Argyres-Douglas fixed point theory</li>
+							</ul>
+						<li>\(\mathcal{K}\)-wall network</li>
+							<ul>
+								<li>Construction</li>
+								<li>Walls of marginal stability of \(\SU(2)\) gauge theories</li>
+								<li>Metric of elliptically fibered hyperk&auml;hler manifold</li>
+							</ul>
+
+					</ul>
+				</section>
+
+				<section>
+					<h2>Lightning review</h2>
+				</section>
+
+				<section>
+					<!-- <h2>Lightning review</h2> -->
+					<section>
+						<h2>M-theory</h2>
+						<ul>
+							<li>M-theory is a prospective theory of quantum gravity. 
+							<li>10d string theories and 11d supergravity are believed to be different limits of M-theory. 
+							<li>M-theory lives in an 11d spacetime. It has a 3-form gauge field and two kinds of branes that couples to it electrically and magnetically. They are M2-branes and M5-branes, respectively.
+						</ul>
+					</section>
+
+					<section>
+						<h2>M2-brane and M5-brane</h2>
+						<ul>
+							<li>A \(p\)-brane spans \((p+1)\)-dimensional spacetime.
+							<li>They are half-BPS objects, meaning they saturate the so-called Bogomolny-Prasad-Sommerfield bound,
+								\[
+									M \geq \left| Z \right|
+								\]
+							where \(M\) is the mass and \(Z\) is the central charge of the object.
+							<li>Because the mass of a BPS object is tied to its central charge, which is a conserved quantitiy that commutes with all the other generators of the SUSY algebra, it is in general stable. 
+							<li>The stability of a BPS object is useful when we try to extrapolate the study done in a weak coupling regime to a strong coupling regime.
+						</ul>
+					</section>
+
+					<section>
+						<h2>4d <span id="font_weight_normal">\(\cN = 2\) \( \mathrm{SU}(N) \)</span> theory</h2>
+						<ul>
+							<li>When we wrap \( N \) M5-branes on a punctured Riemann surface \(C\), 
+								we obtain a 4d \(\mathcal{N}=2\) theory of class S. <span id="reference">[Gaiotto (2009)], [Gaiotto, Moore, Neitzke (2009)]</span></li>
+							<li>In the Coulomb branch of a class S theory, the multiple M5-branes becomes a single M5-brane wrapping a complex 1-dimensional curve \( \Sigma \), 
+								\[
+									f(z, x)=0,\ z \in C,
+								\]
+							a multi-sheeted cover \(\{ x_{i = 1, \ldots, N} \}\) over the \(z\)-plane.</li>
+							<li>\( \Sigma \) determines the low-energy effective action of the theory. <span id="reference">[Seiberg, Witten (1994)]</span></li>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>BPS states of 4d <span id="font_weight_normal">\(\mathcal{N} = 2\) \( \mathrm{SU}(N) \)</span> theory</h2>
+						<ul>
+							<li>A BPS state of the theory is identified with an M2-brane ending along a 1-cycle \(\gamma\) of the Seiberg-Witten curve \(\Sigma\), 
+								\[
+									\gamma \in H_1(\Sigma; \mathbb{Z}).
+								\]</li>
+							<li>Its mass is given by integrating a 1-form, called Seiberg-Witten differential, 
+								\[
+									\lambda = x\, \mathrm{d} z.
+								\]
+								along \(\gamma\),
+								\[
+									M = |Z|,\ Z = \oint_\gamma \lambda.
+								\]</li>
+							<li>The boundary of the M2-brane satisfies a differential equation that depends on \(\lambda\) and \(\theta = \arg(Z)\), 
+							the phase of the central charge of the BPS state. <span id="reference">[Klemm, Lerche, Mayr, Vafa, Warner (1996)]</span> </li>
+							<li>Gaiotto, Moore, and Neitzke extended this construction and introduced \(\mathcal{S}\)-walls and spectral networks</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>ADE spectral network</h2>
+				</section>
+
+				<section>
+					<!-- <h4>ADE spectral network</h4> -->
+					<h2>4d <span id="font_weight_normal">\(\mathcal{N} = 2\)</span> class S theory with <span id="font_weight_normal">\(\mathfrak{g} = \mathrm{A}_n, \mathrm{D}_n, \mathrm{E}_n\)</span></h2>
+					<section>
+						<h3>Spectral cover <span "id=font_weight_normal">\(\Sigma_\rho\)</span></h3>
+						<ul>
+							<li>When a 6d \(\mathcal{N} = (2, 0)\) theory with \(\mathfrak{g} = \mathrm{A}_n, \mathrm{D}_n\), or \(\mathrm{E}_n\) is compactified on a punctured Riemann surface \(C\), we obtain a 4d \(\mathcal{N} = 2\) class S theory whose Coulomb branch consists of degree-\(w_i\) differentials
+							\[
+								\phi_{w_i}(z) = f_{w_i}(z)\, dz^{w_i},\ z \in C,
+							\]
+							where \(w_i\) is the degree of the \(i\)-th Casimiar invariants of \(\mathfrak{g}\).</li>
+							<li>For a \(d\)-dimensional representation \(\rho\) of \(\mathfrak{g}\), we define a <em>spectral cover</em> \( \Sigma_\rho \),
+								\[
+									\Sigma_\rho = \left\{  \lambda\, \big|\, \det \left[ \lambda\, I_d - \rho(\varphi(z)) \right] = 0 \right\} \subset T^*C,
+								\]
+								where \(\varphi(z)\) is a \(\mathfrak{t}/W\)-valued 1-form field whose Casimirs are \( \phi_{w_i}(z) \), \(\mathfrak{t}\) and \(W\) are the Cartan subalgebra and the Weyl group of \(\mathfrak{g}\), respectively.
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Sheets of the cover correspond to weights of <span "id=font_weight_normal">\(\rho\)</span></h3>
+						<ul>
+							<li>There is a natural projection map \(\pi:\Sigma_{\rho}\rightarrow C\) that presents \(\Sigma_\rho\) as a ramified \(d\)-sheeted covering of \(C\).</li> 
+							<li>Denoting the weights of \(\rho\) by \(\nu_j,\ (j = 1, \ldots, d)\), the sheets above a generic \(z \in C\) are
+							\[\begin{align}
+								\pi^{-1}(z) &= 
+								\Big\{ \lambda \in T^{*}C \,\Big|\,
+									\prod_{j = 1}^{d} \left(\lambda - x_j(z)\,\mathrm{d} z \right) = 0 
+							 	\Big\},
+								\\
+								x_j(z)\,\mathrm{d} z &= \langle \nu_j, \varphi(z) \rangle \in \mathbb{C},
+							\end{align}\]
+							where \(\langle\cdot,\cdot\rangle\) denotes the natural pairing of \(\mathfrak{t}^{*}\) and \(\mathfrak{t}\). 
+						</ul>
+					</section>
+
+					<section>
+						<h3>Branch points/cuts correspond to elements of <span id="font_weight_normal">\( W(\mathfrak{g}) \)</span></h3>
+						<ul>
+							<li>Assume that we trivialized the spectral cover, i.e. we ordered the eigenvalues of \(\rho(\varphi)\) on \(C \setminus \{ \text{branch points and cuts}\}\). 
+							<li>Monodromy of \(\varphi\) around a square-root branch point is given by a Weyl reflection \(w_\alpha\) of a root \(\alpha \in \Phi(\mathfrak{g})\), thereby corresponding to a face of a fundamental Weyl chamber.</li>
+							<li>A higher order branch point corresponds to an edge or the vertex of a fundamental Weyl chamber.</li>
+							<li>With a mild confusion, a square-root branch point is labeled by a root \(\alpha \in \Phi(\mathfrak{g})\), and a higher-order branch point is labeled by an ordered set of roots.
+						</ul>
+					</section>
+					
+				</section>
+
+				<section>
+					<!-- <h4>ADE spectral network</h4> -->
+					
+					
+					<section>
+						<h2>How to construct an ADE spectral network</h2>
+						<div style="width: 600px; float: left">
+							<ul>
+								<li>An \(\cS\)-wall is</li>
+								<ul>
+									<li>sourced by either a branch point (primary) or a joint (descendant),</li>
+									<li>labled by a root,</li>
+									<li>grown according to</li>
+									\[\begin{align}
+										&\partial_{t} \langle\alpha,\varphi\rangle = \partial_{t} \langle\nu_i - \nu_j,\varphi\rangle =
+										\\
+										&= (x_i - x_j) \frac{\partial z}{\partial t} = e^{i\vartheta}.
+									\end{align}\]
+									
+								</ul>
+								<li>There is a joint iff the two \(\cS\)-walls carry roots that sum up to a root.</li>
+								<li>A one-way street \(p\) is a segment of an \(\cS\)-wall delimited by branch points or joints.</li>
+								<li>A spectral network \(\cW_\vartheta\) is a network of \(\cS\)-wall for a given \(\vartheta\).</li>
+							</ul>
+						</div>
+
+						<img src="figures/tikz/spectral_network_example.svg" style="background:none; border:none; box-shadow:none; width: 600px; float=right;"/>
+					</section>
+
+					<section>
+						<iframe src="http://het-math2.physics.rutgers.edu/loom/config" style="border: 1px black solid; width: 1280px; height: 850px;"></iframe>
+					</section>
+
+				</section>
+				
+				<section>
+					<h2>Physical data from an ADE spectral network</h2>
+					<section>
+						<h3>2d soliton data</h3>
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>\(\cS_\alpha\)-wall carries a 2d soliton data
+									\[\begin{align}
+										&\left\{\left. (a,\mu(a))\, \right|\, a\in \Gamma(p), \mu(a)\in\bZ \right\},\\
+										&\Gamma(z_1) :=\bigcup_{(i,j)\in\cP_\alpha} \Gamma_{ij}(z_1),\\
+										&\cP_\alpha = \left\{ \left. (i, j)\, \right|\, \nu_j - \nu_i = \alpha \right\},
+									\end{align}\]
+									where \(\Gamma_{ij}(z_1)\) is a set of (\(\bZ_2\)-extended, \(\ker(Z)\)-equivalent classes of) relative homology classes of open paths on \(\Sigma_\rho\). 
+								</li>
+								<li>2d \(\cN=(2,2)\) theory on a surface defect \(\bS_{z_1, \rho}\) has a soliton \(a\) with \(\mu(a) = +1\), and \(\bS_{z_3, \rho}\) has a soliton \(c\) with \(\mu(c) = \mu(a) \cdot \mu(b) = +1\).</li>
+								<li>\(\mu(a) / \mu(a') = (-1)^{w(a, a')}\)</li>
+							</ul>
+						</div>
+						<img src="figures/tikz/2d_soliton_data.svg" style="background:none; border:none; box-shadow:none; width: 500px; float=right;"/>
+					</section>
+					<section>
+						<h3>Symmetry of 2d solitons</h3>
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>Let \(z\) be on a street of \(\cS_{\alpha}\), and let \((i,j), (i',j') \in \cP_{\alpha}\) be two distinct pairs. Then, for any soliton \(a \in \Gamma_{ij}(z)\), there is another soliton \(a' \in \Gamma_{i'j'}(z)\) with </li>
+								<ul>
+									<li>\(Z_{a'}=Z_{a}\),</li>
+									<li>\(\mu(a')=\mu(a)\),</li>
+									<li>supported on the same soliton tree \(\mathcal{T}_a\).</li>
+								</ul>
+								<li>Solitons are symmetric under the permutations of the pairs in \(\cP_{\alpha}\), i.e. the symmetry group is \(S_{k_\rho}\) where \(k_\rho = \left| \cP_\alpha \right|\).</li>
+							</ul>
+						</div>
+						<img src="figures/soliton_tree.svg" style="background:none; border:none; box-shadow:none; width: 500px; float=right;"/>
+					</section>
+					<section>
+						<h3><span id="font_weight_normal">\(\cK\)</span>-wall jump of <span id="font_weight_normal">\(\cW\)</span></h3>
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>For a one-parameter family of spectral networks, \(\cW_\vartheta\), there is \(\vartheta = \vartheta_\text{c}\) where a spectral network undergoes a topological jump, called a \(\cK\)</span>-wall jump.</li>
+								<li>At \(\vartheta = \vartheta_\text{c}\) a two-way street \(p\) appears.</li>
+								<li>We can construct a sub-network \(\cW_\text{c}\) that consists of two-way streets of \(\cW_\vartheta\) only.</li>
+							</ul>
+						</div>
+						<iframe src="figures/loom_plots/single_hyper.html" style="width: 550px; height: 700px; float=right; margin-top: -50px"></iframe>
+					</section>
+					<section>
+						<h3>4d BPS state</h3>
+						<ul>
+							<li>For a two-way street \(p\), calculate</li>
+							\[
+								Q(p) = 1+\sum_{\substack{\overline{a}\in\Gamma_{ij}(p)\\ \overline{b}\in\Gamma_{ji}(p)}}\mu(a)\mu(b)\,X_{\mathrm{cl}(ab)} = \prod_{n=1}^{\infty}\big(1 + X_{{n\overline{\gamma}_\mathrm{c}}}\big)^{\alpha_{{n{\gamma_\mathrm{c}}}}(p)}, \alpha_{{\gamma}}(p)\in\bZ.
+							\]
+							<li>For a \(\gamma = n \gamma_\text{c}\) obtain a (closed and oriented) path on \(\Sigma_\rho\),
+							\[
+								L({\gamma}) :=\sum_{p\in\cW_\mathrm{c}}\alpha_{{\gamma}}(p)\,\pi^{-1}(p).
+							\]
+							</li>
+							<li>The DSZ pairing of two 4d charges is
+							\[
+								\langle \gamma, \gamma' \rangle_{\text{DSZ}} = (1/k_\rho) \langle L(\gamma), L(\gamma')  \rangle.
+							\]
+							</li>
+							<li>The 4d BPS index of \(\gamma\) is
+								\[
+									\Omega(\gamma) = [L(\gamma)]/\check{\gamma},
+								\]
+							where \([L(\gamma)]\), \(\check{\gamma}\) are 1-cycles corresponding to \(L(\gamma)\) and \(\gamma\), respectively. Each of them is an orbit of a closure of a pair of 2d solitons under the permutation symmetry \(S_{k_\rho}\).
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Example: a single hypermultiplet</h3>
+						<div style="width: 800px; float: left">
+							<ul>
+								<li>Consider \(\fg = \gD_4\), \(\dim(\rho) = 4\). Then
+									\[\begin{align}
+										\cP_\alpha &= \{(12),(34)\},\ \cP_{-\alpha} = \{(21),(43)\}.\\
+									
+										Q(p) &= 1+ X_{a_{12}}X_{b_{21}} = 1+ X_{a_{34}}X_{b_{43}} \\
+											&= 1 + X_{\overline{\gamma}} \Rightarrow \alpha_{\gamma} = 1.\\
+									
+										L({\gamma}) &= p^{(2)}-p^{(1)} + p^{(4)}-p^{(3)}.\\
+									
+										\Omega({\gamma}) &= [L({\gamma})]/ \check{\gamma} = 1,
+									\end{align}\]
+									where \(\check{\gamma} = \check{\gamma}_{12}+ \check{\gamma}_{34}\) and
+									\[
+										\overline{\gamma}_{12} = \text{cl}(a_{12} b_{21}),\ \overline{\gamma}_{34} = \text{cl}(a_{34} b_{43}).
+									\]
+							</ul>
+						</div>
+						<img src="figures/single_hyper.svg" style="background:none; border:none; box-shadow:none; width: 400px; float=right;"/>
+					</section>
+				</section>
+
+				<section>
+					<!-- <h4>ADE spectral network</h4> -->
+					<section>
+						<h2>Pure gauge theories</h2>
+						<ul>
+							<li>A 4d \(\cN = 2\) pure gauge theory with \(G = \SU(N),\, \SO(2N),\, \gE_6\), or \(\gE_7\) is described by
+								\[
+									\phi_{k}(z) = u_k \left(\frac{\dd z}{z}\right)^k,\quad 
+									\phi_{h^\vee}(z) = \left( \mu^{h^\vee} z + u_{h^\vee} + \frac{\mu^{h^\vee}}{z} \right) \left(\frac{\dd z}{z}\right)^{h^\vee},
+								\]
+								where \(\{u_k\}\) are Coulomb branch parameters and \(h^\vee\) is the dual Coxeter number of \(G\). <span id="reference">[Martinec, Warner (1995)] [Keller, Mekareeya, Song, Tachikawa (2011)]</span></li>
+							</li>
+							<li>At the origin of the Coulomb branch, \(u_k = 0\), there are two branch points whose ramification structure is given by the Coxeter element of \(W(\fg)\), and from each branch point \(\cS\)-walls of all root type emanates.</li>
+							<li>As we vary \(\vartheta\) from \(0\) to \(\pi\), there is a \(\cK\)-wall jump for each root of \(\fg\), leading to the BPS spectrum of a hypermultiplet for every root of \(\fg\), which is consistent with BPS quiver analysis. <span id="reference">[Alim, Cecotti, Cordova, Espahbodi, Rastogi, Vafa (2011)] [Longhi, CYP (2016)]</li>
+						</ul>
+					</section>
+					<section>
+						<h2>\(SU(2)\)</h2>
+						<iframe src="figures/loom_plots/pure_SU_2.html" style="border: 1px gray solid; width: 1280px; height: 850px;"></iframe>
+					</section>
+					<section>
+						<h3>\(SO(8)\)</h3>
+						<iframe src="figures/loom_plots/pure_SO_8.html" style="border: 1px gray solid; width: 1280px; height: 850px;"></iframe>
+					</section>
+				</section>
+
+				<section>
+					<!-- <h4>ADE spectral network</h4> -->
+					<section>
+						<h2><span id="font_weight_normal">\(\gD_N\)-class</span> Argyres-Douglas fixed point theory</h2>
+						<ul>
+							<li>The AD fixed point of a 4d \(\cN=2\) \(\SO(2N)\) pure gauge theory is claimed to be equivalent to that of a 4d \(\cN=2\) \(\SU(N)\), \(N_\mathrm{f} = 2\) theory. <span id="reference">[Eguchi, Hori, Ito, Yang (1996)]</span></li>
+							<li>At a point in the Coulomb branch moduli space where the number of BPS states is minimal, their BPS spectrum can be conveniently encoded into the BPS quiver that has the shape of a $\mathrm{D}_{N}$ Dykin diagram, and the fixed point theory (and its deformations) is termed a \(\mathrm{D}_{N}\)-class theory. <span id="reference">[Maruyoshi, CYP, Yan (2013)]</span> 
+							<li>Using spectral networks of a \(\mathrm{D}_{N}\)-class theory from the 4d \(\cN=2\) \(\SO(8)\) pure gauge theory, we can find that its BPS spectra across different chambers in the Coulomb branch moduli space are the same as those of a \(\mathrm{D}_{N}\)-class theory from the 4d \(\cN=2\) \(\SU(N)\), \(N_\mathrm{f} = 2\) theory. <span id="reference">[Longhi, CYP (2016)]</span></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2><span id="font_weight_normal">\(\gD_4\)</span>-class AD theory with <span id="font_weight_normal">\(\mathfrak{g} = \gD_{N}\)</span></h2>
+						<ul>
+							<!-- <li>The Seiberg-Witten curve of a \(\mathrm{D}_{N}\)-class theory with \(\mathfrak{g} = \gD_{N}\) is obtained by choosing
+								\[\begin{align}
+									\phi_k &= s_k \left(\dd z \right)^k, \quad (k \neq h^\vee = 2N-2),\\ 
+									\phi_{h^\vee} &= \left( s_{h^\vee} + z^2 \right) (\mathrm{d} z)^{h^\vee}.
+								\end{align}\]
+							</li> -->
+							<li>The Seiberg-Witten curve of a \(\mathrm{D}_{4}\)-class theory with \(\mathfrak{g} = \gD_{N}\) is \(\lambda^8 + \phi_2 \lambda^6 + \phi_4 \lambda^4 + \phi_6 \lambda^2 + (\tilde{\phi}_4)^2\) with
+								\[\begin{align}
+									\phi_{2} = s_{2} (\dd z)^{2},\ \phi_{4} = s_{4} (\dd z)^{4},\ \phi_{6} = \left( s_{6} + z^2 \right) (\dd z)^{6},\ \tilde{\phi}_4 = \tilde{s}_4 (\dd z)^{4}.
+								\end{align}\]
+							</li>
+							<li>The flavor symmetry is enhanced to \(\SU(3)\) when \(s_4 = {s_2^2}/{4}\) and \(\tilde{s}_4 = 0\), then we can rescale the curve to absorb \(s_2\), therefore the theory has a complex 1-dimensional moduli space determined by \(s = s_6/(s_2)^3\).</li> 
+							<li>By studying the discriminant of the curve, we find that there are two singularities at \(s = s_\mathrm{t},\ s_\mathrm{s}\). Using spectral networks, we find that at \(s = s_\mathrm{t}\) three BPS states, a triplet of the flavor symmetry \(\SU(3)_\mathrm{f}\), become massless, and at \(s = s_\mathrm{s}\) a flavor singlet BPS state becomes massless.
+						</ul>
+						<img src="figures/tikz/D_4_s_plane.svg" width="600px" style="background:none; border:none; box-shadow:none;"/>
+					</section>
+
+					<section>
+						<h2>In the minimal BPS chamber</h2>
+						<iframe src="figures/loom_plots/D_4_AD_from_SO_8_min_BPS.html" style="width: 600px; height: 700px; float=left; vertical-align:middle;"></iframe>
+						<img src="figures/tikz/D_4_minimal_Z.svg" style="background:none; border:none; box-shadow:none; width: 400px; float=right; vertical-align:middle;"/>
+						<img src="figures/tikz/D_4_BPS_quiver.svg" style="background:none; border:none; box-shadow:none; width: 250px; float=right; vertical-align:middle; margin-top: 75px;"/>
+					</section>	
+
+					<section>
+						<h2>In the maximal BPS chamber</h2>
+						<iframe src="figures/loom_plots/D_4_AD_from_SO_8_max_BPS_sym.html" style="width: 600px; height: 700px; float=left; vertical-align:middle;"></iframe>
+						<img src="figures/tikz/D_4_maximal_symmetric_Z.svg" style="background:none; border:none; box-shadow:none; width: 600px; float=right; vertical-align:middle;"/>
+					</section>
+				</section>
+
+				<section>
+					<h2>Future directions</h2>
+					<ul>
+						<li>For a non-minuscule representation \(\rho\) and/or a non-simply-laced \(\fg\), study
+							<ul>
+								<li>2d theory on a defect \(\bS_{z, \rho}\) and its BPS spectrum, and</li>
+								<li>ABCDEFG spectral networks.</li>
+							</ul>
+						</li>
+						
+						<li>Cameral cover, defect, and spectral networks</li>
+					</ul>
+				</section>	
+
+				<section>
+					<h2><span id="font_weight_normal">\(\mathcal{K}\)</span>-wall network</h2>
+				</section>
+
+				<section>
+					<h2>Construction of <span id="font_weight_normal">\(\mathcal{K}\)</span>-wall network</h2>
+					<section>
+						<ul>
+							<li>\(\cS\)-walls are related to BPS states of a 2d theory and are defined on its parameter space.</li>
+							<li>Similarly for a 4d \(\cN=2\) theory we construct from its BPS states \(\cK\)-walls in the moduli space of the theory.</li>
+							
+							<li>Consider a 4d \(\cN=2\) \(\SU(2)\) pure gauge theory. Its moduli space is a complex 1-dimensional space, and there are two points in the moduli space that correspond to the appearance of a massless BPS state.</li> 
+							<li>At each point a 1-cycle corresponding to the BPS state shrinks to zero and the Seiberg-Witten curve becomes singular.</li>
+							<li>The locations of the points can be obtained by solving the discriminant of the Seiberg-Witten curve, 
+								\[\begin{align}
+									y^2 = (x-1)(x+1)(x-u),
+								\end{align}\]
+							which has \(\Delta(u_\pm) = 0\), \(u_\pm = \pm 1\). We use the traditional Seiberg-Witten differential
+								\[\begin{align}
+									\lambda = (x-u) \frac{dx}{y}.
+								\end{align}\]
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>A <span id="font_weight_normal">\(\mathcal{K}\)</span>-wall</h3>
+							<ul>
+								<li>Consider \(u = u_* = u_+ + \epsilon\). There is only one BPS state whose mass becomes zero as \(\epsilon \to 0\). Denote its central charge as \(Z(u_*; \gamma_+)\), where \(\gamma_+\) is the 1-cycle that shrinks to zero at \(u = u_+\).</li>
+
+								<!-- <li>\(Z(u_*; \gamma_+) = \oint_{\gamma_+} \lambda(u_*).\)</li>
+								<li>\(Z(u_* \to u_+; \gamma_+) = 0.\)</li> -->
+								<li>We can find a path \(\cK_{\gamma_+}\) connecting \(u_*\) to \(u_+\) by requiring that \(\arg \left[Z(u; \gamma_+)\right] = \zeta\) to be constant along the path. Running the argument backwards, we can construct a real 1-dimensional line on the moduli space that emanates from \(u_+\) by fixing a phase \(\ee^{i \vartheta}\) and requiring the path to satisfy 
+									\[\begin{align}
+										\arg \left[ \partial_\tau Z(u; \gamma_+) \right] = \exp \left( i \vartheta \right).
+									\end{align}\] 
+								<li>When such a path goes through a certain value of \(u\), it implies that the theory with Coulomb branch parameter having the value of \(u\) has a BPS state of central charge \(Z(u; \gamma_+)\). We will call such a path in the moduli space a \(\cK\)-wall. 
+						</ul>
+
+					</section>
+					<section>
+						<h3>Seeding a <span id="font_weight_normal">\(\mathcal{K}\)</span>-wall at a discriminant locus</h3>
+						<ul>
+							<li>From a singularity \(u_i\) corresponding to a non-degenerate root of \(\Delta(u) = 0\), we have a single 1-cycle \(\gamma_i\) that shrinks to zero, and therefore a single \(\cK\)-wall \(\cK_{\gamma_i}\) emanating from such a singularity that satisfies
+								\[\begin{align}
+									\exp \left( i \vartheta \right) = \frac{\partial}{\partial \tau} Z(u; \gamma_i) 
+										= \frac{du}{d\tau} \frac{\partial}{\partial u} \oint_{\gamma_i} \lambda 
+										= \frac{du}{d\tau} \oint_{\gamma_i} \omega ,
+								\end{align}\]
+							where
+								\[\begin{align}
+									\omega = \frac{\partial \lambda}{\partial u} = \frac{dx}{y}
+								\end{align}\]
+							is the holomorphic 1-form of the curve.</li>
+							<li>4d \(\cN=2\) supersymmetry requires that when there is a BPS state there should be its conjugate, therefore it is convenient to consider two \(\cK\)-walls emanating from a single discriminant locus in the opposite directions.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Evolving a <span id="font_weight_normal">\(\mathcal{K}\)</span>-wall and the Picard-Fuchs equation</h3>
+						<ul>
+							<li>Away from a discriminant locus, when we numerically evolve a \(\cK\)-wall, instead of using the integration of a holomorphic 1-form that is more difficult not only to calculate numerically but also to track all the branch cuts, it is easier to use the Picard-Fuchs equation, which becomes a second-order ordinary differential equation for \(\eta_i = \oint_{\gamma_i} \omega\).</li>
+	
+							<li>When the curve is in the Weierstrass form,
+								\[\begin{align}
+									y^2 = 4x^3 -g_2(u) x - g_3(u),
+								\end{align}\]
+							the Picard-Fuchs equation is
+								\[\begin{align}
+									\eta_i'' - \left( \frac{\delta'}{\delta} - \frac{\Delta'}{\Delta} \right) \eta_i'
+										- \left[ -\frac{3g_2 \delta^2}{16 \Delta^2} + \frac{\delta'\Delta'}{12\delta\Delta} - \frac{\Delta''}{12\Delta} + \frac{\Delta'^2}{144\Delta^2} \right] \eta_i = 0.
+								\end{align}\]</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Intersection of <span id="font_weight_normal">\(\mathcal{K}\)</span>-walls and KS wall-crossing formula</h3>
+						<ul>
+							<li>When two \(\cK\)-walls from different discriminant loci meet, there can be a nontrivial intersection.</li> 
+							<li>An intersection of two \(\cK\)-walls that carry charges \(\gamma_i = (q_i, g_i)\) is determined by the DSZ pairing of the two charges, i.e. \(\langle \gamma_i, \gamma_j \rangle = q_i g_j - q_j g_i\).</li>
+							<li>When \(\langle \gamma_i, \gamma_j \rangle \neq 0\), there will be new \(\cK\)-walls from the intersection of the two \(\cK\)-walls, and their charges and degeneracies are determined by the wall-crossing formula of Kontsevich and Soibelman.</li> 
+							<li>Pure \(\SU(2)\) gauge theory has two \(\cK\)-walls \(\cK_{(2, -1)}\) and \(\cK_{(0, 1)}\) with \(\langle \gamma_{(2, -1)}, \gamma_{(0, 1)} \rangle = 2\), and the KS wall-crossing formula gives
+								\[\begin{align}
+									\cK_{(2, -1)} \cK_{(0, 1)} = \left( \cK_{(0, 1)} \cK_{(2, 1)} \cK_{(4, 1)} \cdots \right) \cK_{(2, 0)} \left( \cdots \cK_{(6, -1)} \cK_{(4, -1)} \cK_{(2, -1)} \cdots \right),
+								\end{align}\]
+							implying that there are infinitely many \(\cK\)-walls emanating from the intersection of the two \(\cK\)-walls.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h3><span id="font_weight_normal">\(\mathcal{K}\)</span>-wall network and MS walls of pure <span id="font_weight_normal">\(\SU(2)\)</span> gauge theory</h3>
+						<p>The construction of a \(\cK\)-wall network is similar to that of an \(\cS\)-wall network: build \(\cK\)-walls from every discriminant locus, evolve each of them according to the Picard-Fuchs equation, and find their intersections to spawn descendant \(\cK\)-walls according to the KS wall-crossing formula.
+						</p>
+						<img src="figures/mose_plots/K_wall_network_pure_SU_2.png" style="background:none; border:none; box-shadow:none; width: 600px; float=left;"/>
+						<img src="figures/mose_plots/ms_walls_pure_SU_2.png" style="background:none; border:none; box-shadow:none; width: 600px; float=right;"/>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>4d BPS spectrum from a <span id="font_weight_normal">\(\mathcal{K}\)</span>-wall network</h2>
+					<ul>
+						<li>From a \(\cK\)-wall network of a 4d \(\cN=2\) theory we can read out its BPS spectrum at a point on its moduli space by observing which \(\cK\)-walls pass through a fixed point in the moduli space as we change the phase of the network.</li>
+						<li>From a family of \(\cK\)-wall networks, we can also find walls of marginal stability of the BPS spectrum and study the change of the spectrum as the theory goes over the walls.</li>
+						<li>A wall of marginal stability consists of intersections of \(\cK\)-walls.</li>
+						<li>Walls of marginal stability define chambers of the moduli space, each of which has a integer-valued function \(\Omega(\gamma; u)\). \(\Omega\) is a BPS index defined as
+						\[\begin{align}
+							\Omega(\gamma; u) = -\frac{1}{2} \mathrm{Tr}_{\cH_1(\gamma, u)}(-1)^{2J_3}(2J_3)^2,
+						\end{align}\]
+						where \(\cH_1(\gamma, u)\) is the Hilbert space of one-particle states of charge \(\gamma\) at \(u\).</li>
+						<li>\(\Omega\) is constant when \(u\) stays in a single chamber, and counts the BPS states of charge \(\gamma\).</li>
+				</section>
+
+				<section>
+					<h2>Metric of elliptically fibered hyperk&auml;hler manifold</h2>
+					<section>
+						<ul>
+							<li>\(\Omega(\gamma; u)\) obtained from \(\cK\)-wall networks can be used to calculate the metric of a total space \(\cM\) of an elliptically fibered moduli space of a 4d \(\cN=2\) theory compactified on a circle.<span id="reference">[Gaiotto, Moore, Neitzke (2008)]</span></li>
+							<li>Consider compactifying a 4d \(\cN=2\) theory on \(\bR^3 \times S^1\) to get a 3d \(\cN=4\) \(\sigma\)-model whose target space is \(\cM\).</li>
+							<li>A 3d supersymmetric nonlinear \(\sigma\)-model with an irreducible target manifold has \(\cN=4\) supersymmetry if and only if the manifold is hyperk&auml;hler. <span id="reference">[Alvarez-Gaume, Freedman (1981)]</span></li>
+						</ul>
+					</section>
+
+					<section>
+						<ul>
+							<li>First find \(\cX_\gamma(x, \zeta)\) for \(x \in \cM'\) that solves
+								\[\begin{align}
+							    	&\cX_\gamma(x, \zeta) 
+							    		= \cX^{\mathrm{sf}}_\gamma(x, \zeta) 
+							    			\exp \Big[ - \frac{1}{4\pi \ii} \sum_{\gamma'} \Big( \Omega(\gamma'; u) \langle \gamma, \gamma' \rangle \times \\
+
+							    				&\quad \int_{\ell_{\gamma'}(u)} \frac{\dd \zeta'}{\zeta'} \frac{\zeta' + \zeta}{\zeta' - \zeta} \log \left( 1 - \cX_{\gamma'} (x, \zeta') \right) \Big) \Big].
+								\end{align}\]</li>
+						<!-- </ul>
+						<ul> -->
+							<li>\(\cX^{\mathrm{sf}}\) is the zeroth approximation of \(\cX_\gamma\), 	
+								\[\begin{align}
+									\cX^{\mathrm{sf}}_\gamma(x, \zeta) = \exp \left[ \pi R \frac{Z_\gamma}{\zeta} + \ii \theta_\gamma + \pi R \zeta \bar{Z}_\gamma \right], 
+								\end{align}\]
+								where \(Z_\gamma(u)\) is the central charge, \(\theta_\gamma(u)\) is an angular coordinate of the elliptic curve, and \(R\) is the radius of the \(S^1\). \(\cX^{\mathrm{sf}}\) can be used to solve the integral equation iteratively.</li>
+						</ul>
+					</section>
+
+					<section>	
+						<ul>
+							<li>From \(\cX_\gamma(x, \zeta)\) obtain the holomorphic symplectic 2-form in complex structure \(J^{(\zeta)}\)
+								\[\begin{align}
+									\varpi(\zeta) = \frac{1}{8\pi^2 R} \epsilon_{ij} \frac{\dd \cX_{\gamma_i}(\zeta)}{\cX_{\gamma_i}(\zeta)} \wedge \frac{\dd \cX_{\gamma_j}(\zeta)}{\cX_{\gamma_j}(\zeta)},
+								\end{align}\]
+								where \(\dd\) is a differentiation on \(\cM\) with \(\zeta\) fixed, \(\epsilon^{ij} = \langle \gamma_i, \gamma_j \rangle\) of the charge lattice \(\Gamma_\mathrm{g}\). The holomorphic data determines its metric.</li>
+
+						</ul>
+					</section>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				// The "normal" size of the presentation, aspect ratio will be preserved
+			    // when the presentation is scaled to fit different resolutions. Can be
+			    // specified using percentage units.
+			    //width: 1280,
+			    //height: 720,
+
+			    width: 1280,
+			    height: 960,
+
+			    // Factor of the display size that should remain empty around the content
+			    margin: 0.1,
+
+			    // Bounds for smallest/largest possible scale to apply to content
+			    minScale: 0.2,
+			    maxScale: 1.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				// Flags if speaker notes should be visible to all viewers
+    			showNotes: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			    math: {
+    				mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+    				//mathjax: 'MathJax/MathJax.js',
+    				config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

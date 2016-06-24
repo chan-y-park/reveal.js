@@ -1,0 +1,804 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>ADE Spectral Network &mdash; BPS spectra of supersymmetric theories</title>
+
+		<meta name="description" content="Uppsala talk">
+		<meta name="author" content="Chan Y. Park">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/chan.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				TeX: {
+					Macros: {
+						cH: "{\\mathcal{H}}",
+						cP: "{\\mathcal{P}}",
+			 			cS: "{\\mathcal{S}}",
+			 			cK: "{\\mathcal{K}}",
+			 			cM: "{\\mathcal{M}}",
+			 			cN: "{\\mathcal{N}}",
+			 			cW: "{\\mathcal{W}}",
+			 			cX: "{\\mathcal{X}}",
+
+			 			SU: "{\\mathrm{SU}}",
+			 			SO: "{\\mathrm{SO}}",
+			 			Sp: "{\\mathrm{Sp}}",
+			 			UU: "{\\mathrm{U}}",
+
+			 			fg: "{\\mathfrak{g}}",
+			 			ft: "{\\mathfrak{t}}",
+
+			 			gA: "{\\mathrm{A}}",
+			 			gD: "{\\mathrm{D}}",
+			 			gE: "{\\mathrm{E}}",
+
+			 			dd: "{\\mathrm{d}}",
+			 			ee: "{\\mathrm{e}}",
+			 			ii: "{\\mathrm{i}}",
+			 			bR: "{\\mathbb{R}}",
+			 			bS: "{\\mathbb{S}}",
+			 			bZ: "{\\mathbb{Z}}",
+			 		}
+				}
+			});
+		</script>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<style type="text/css">
+			/* OL { counter-reset: item }
+			OL LI { display: block }
+			OL LI:before { content: counters(item, ".") ". "; counter-increment: item } */
+			
+			#font_weight_normal {font-weight: normal;}
+			#texttt {font-family: "Courier New", Courier, monospace;}
+			#reference {color: blue;}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<!-- <h1>ADE Spectral Network</h1>
+					<h3><span style="font-weight: normal;">BPS spectra of supersymmetric theories</span></h3> -->
+					<h1>Supersymmetric Spectroscopy<br/>with Spectral Network</h1>
+					
+					<h3>Chan Y. Park</h3>
+					<h4>Rutgers University</h4>
+					<h4>Mar. 09, 2016 @ Uppsala</h4>
+					<ul style="color:blue">
+						<li>
+							K. Hori, CYP, Y. Tachikawa, <a href="http://arxiv.org/abs/arXiv:1309.3036">arXiv:1309.3036</a>
+						</li>
+						<li>K. Maruyoshi, CYP, W. Yan, <a href="http://arxiv.org/abs/arXiv:1309.3050">arXiv:1309.3050</a></li>
+						<li>P. Longhi, CYP, <a href="http://arxiv.org/abs/1601.02633">arXiv:1601.02633</a></li>
+						<li>P. Longhi, CYP, arXiv:16XX.XXXXX</li>
+							<ul>
+								<li><a href="http://het-math2.physics.rutgers.edu/loom/">http://het-math2.physics.rutgers.edu/loom/</a></li>
+								<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/loom</a></li>
+							</ul>
+					</ul>
+				</section>
+				<section>
+					<section>
+						<h2>Experimental-Mathematical-Computational-Theoretical-Physics!</h2>
+						<ul>
+							<li>Recent development in both hardware and software of computational tools enabled us to study physical and mathematical problems by combining analytical and numerical methods together, which is proven to be complementary to the traditional pen-and-paper approach for various topics including</li>
+							<ul>
+								<li>Modern conformal bootstrap using crossing symmetry of 4pt function to derive bounds on spectrum in OPE of fields. <span id="reference">[Rattazzzi, Rychkov, Tonni, Vichi (2008)], ...</span></li>
+								<li>Using modular invariance of torus amplitude of 2d CFT to obtain bounds on spectrum. <span id="reference">[Hellerman (2009)], ...</span></li>
+								<li>Evaluating leading terms in series expansions of supersymmetric partition functions and indices.</li>
+								<li>And many more...</li>
+							</ul>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Why is <span id="texttt">loom</span> written in <span id="texttt">Python</span>?</h2>
+						<ul>
+							<li>Open-source</li>
+							<ul>
+								<li>Can look into what's going on in the box (if you want)</li>
+								<li>A type of software license that goes well with academic researches</li>
+							</ul>
+							<li>Active and helpful <span id="texttt">Python</span> community</li>
+							<li>Diverse and powerful libraries, including a suite of scientific libraries a.k.a <span id="texttt">ScyPy</span> stack</li>
+							<ul>
+								<li><span id="texttt">SymPy</span> for symbolic math</li>
+								<li><span id="texttt">NumPy</span> for numerical computation</li>
+								<li><span id="texttt">SciPy</span> for scientific computation</li>
+								<li><span id="texttt">matplotlib</span> for visualization</li>
+								<li>And more...</li>
+							</ul>
+							<li><span id="texttt">SAGE</span> for extensive math library</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Spectroscopy we learned at high school</h2>
+						<ul>
+							<li>A flame test is a qualitative method to identify an element.
+								<div style="display: block; margin: 1em auto 1em; height: 350px; width: 500px;">
+									<div style="text-align: center; height: 300px; float: left;">
+										<img src="figures/flametest_Cu.jpg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+										<br/>
+										Cu
+									</div>
+									<div style="text-align: center; height: 300px; float: right;">
+										<img src="figures/flametest_Na.jpg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+										<br/>
+										Na
+									</div>
+								</div>
+							</li>
+								
+							<li>An emission spectrum is used to quantitatively distinguish different elements.</li>
+								<div style="display: block; margin: 1em auto 1em; height: 150px; width: 1100px;">
+									<div style="text-align: center; height: 300px; float: left;">
+										<img src="figures/emission_spectrum_Cu.jpg" style="background:none; box-shadow:none; border:none; vertical-align:middle; height: 100px; width: 500px;"/>
+										<br/>
+										Cu
+									</div>
+									<div style="text-align: center; height: 300px; float: right;">
+										<img src="figures/emission_spectrum_Na.jpg" style="background:none; border:none; box-shadow:none; vertical-align:middle; height: 100px; width: 500px;"/>
+										<br/>
+										Na
+									</div>
+								</div>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Supersymmetric spectroscopy<br/>via spectral network</h2>
+						<ul>
+							<li>Using spectral network, we can get the BPS spectrum of a 4d \(\cN = 2\) theory of class S on the Coulomb branch, as well as that of a 2d \(\cN = (2, 2)\) theory of a surface defect of the 4d theory.</li>
+							<li>This is useful when the theory is strongly coupled and we lack any perturbative approach to understand it, for example class S theories associated with strongly interacting SCFTs <span id="reference">[Argyres, Douglas (1995)], [Argyres, Plesser, Seiberg, Witten (1995)], [Minahan, Nemeschansky (1996)]</span>.</li>
+						</ul>
+						<div style="display: block; margin: 1em auto 1em; width: 1200px;">
+							<div style="text-align: center; height: 300px; width: 300px; float: left;">
+								<img src="figures/AD_of_SU_3_N_f_2_SU_3_f_maximal_symmetric_SN_near_triplet.svg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								spectral network
+							</div>
+							<div style="text-align: center; height: 300px; width: 300px; float: left;">
+								<img src="figures/AD_of_SU_3_N_f_2_SU_3_f_maximal_symmetric_finite.svg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								2-way streets
+							</div>
+							<div style="text-align: center; height: 300px; width: 300px; float: left;">
+								<img src="figures/AD_of_SU_3_N_f_2_SU_3_f_maximal_symmetric_Z_plot.svg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								4d central charges
+							</div>
+							<div style="text-align: center; height: 300px; float: left;">
+								<img src="figures/figure_A3_k_2_weight.png" style="background:none; box-shadow:none; border:none; vertical-align:middle; margin-bottom: 22px;"/>
+								<br/>
+								2d solitons
+							</div>
+						</div>
+
+					</section>
+
+					<section>
+						<h2>Getting spectral networks of class S theory using $\texttt{loom}$</h2>
+						<ul>
+							<li><a href="http://het-math2.physics.rutgers.edu/loom/">http://het-math2.physics.rutgers.edu/loom/</a></li>
+							<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/loom</a></li>
+						</ul>
+						<iframe src="figures/loom_plots/pure_SU_3.html" style="width: 600px; height: 700px; float: left; vertical-align:middle;"></iframe>
+						<iframe src="figures/loom_plots/AD_from_pure_SU_3.html" style="width: 600px; height: 700px; float: left; vertical-align:middle;"></iframe>
+					</section>
+				</section>
+
+				<section>
+					<h2>Outline</h2>
+					<ul>
+						<li>Introduction</li>
+						<li>4d \(\cN = 2\) theory of class S</li>
+						<li>ADE spectral network</li>
+						<li>Applications of spectral network</li>
+							<ul>
+								<li>2d SCFTs from surface defects of 4d \(\cN = 2\) theory of class S</li>
+								<li>BPS spectrum of pure gauge theory with \(G = \SU(N),\ \SO(2N),\ \gE_6,\ \gE_7\)</li>
+								<li>\(\gD_N\)-class Argyres-Douglas fixed point theory</li>
+							</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>4d <span id="font_weight_normal">\(\cN = 2\)</span> Theory of Class S</h2>
+				</section>
+
+				<section>
+					<section>
+						<h2>4d <span id="font_weight_normal">\(\cN = 2\) \( \mathrm{SU}(N) \)</span> theory of class S</h2>
+						<ul>
+							<li>When we wrap \( N \) M5-branes on a punctured Riemann surface \(C\), 
+								we obtain a 4d \(\mathcal{N}=2\) \( \mathrm{SU}(N) \) theory of class S. <span id="reference">[Gaiotto (2009)], [Gaiotto, Moore, Neitzke (2009)]</span></li>
+							<li>In the Coulomb branch of a class S theory, the multiple M5-branes merge into a single M5-brane wrapping a complex 1-dimensional curve \( \Sigma \), 
+								\[
+									f(z, x)=0,\ z \in C,
+								\]
+							called a Seiberg-Witten curve or an IR curve, which is a multi-sheeted cover \(\{ x_{i = 1, \ldots, N} \}\) over \(C\), a UV curve.</li>
+							<li>\( \Sigma \) determines the low-energy effective action of the theory. <span id="reference">[Seiberg, Witten (1994)]</span></li>
+							</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>BPS states of 4d <span id="font_weight_normal">\(\mathcal{N} = 2\) \( \mathrm{SU}(N) \)</span> theory</h2>
+						<ul>
+							<li>A BPS state of the theory is identified with an M2-brane ending along a 1-cycle \(\gamma\) of the Seiberg-Witten curve \(\Sigma\), 
+								\[
+									\gamma \in H_1(\Sigma; \mathbb{Z}).
+								\]
+							<span id="reference">[Henningson, Yi (1997)], [Mikhailov (1997)]</span>
+							</li>
+
+							<li>Its mass is given by integrating a 1-form 
+								\[
+									\lambda = x\, \mathrm{d} z
+								\]
+								called Seiberg-Witten differential, along \(\gamma\),
+								\[
+									M = |Z|,\ Z = \oint_\gamma \lambda.
+								\]</li>
+							<li>The boundary of the M2-brane satisfies a differential equation that depends on \(\lambda\) and \(\theta = \arg(Z)\), 
+							the phase of the central charge of the BPS state. <span id="reference">[Klemm, Lerche, Mayr, Vafa, Warner (1996)]</span> </li>
+							<li>Gaiotto, Moore, and Neitzke extended this construction and introduced \(\mathcal{S}\)-walls and spectral networks</li>
+						</ul>
+					</section>
+				</section>
+
+				<section>
+					<h2>4d <span id="font_weight_normal">\(\mathcal{N} = 2\)</span> ADE class S theory</h2>
+					<section>
+						<h3>Spectral cover <span "id=font_weight_normal">\(\Sigma_\rho\)</span></h3>
+						<ul>
+							<li>When a 6d \(\mathcal{N} = (2, 0)\) theory with \(\fg = \gA_n,\ \gD_n,\ \gE_6\), or \(\gE_7\) is compactified on a punctured Riemann surface \(C\), we obtain a 4d \(\mathcal{N} = 2\) class S theory whose Coulomb branch is described by degree-\(w_i\) differentials
+							\[
+								\phi_{w_i}(z) = f_{w_i}(z)\, dz^{w_i},\ z \in C,
+							\]
+							where \(w_i\) is the degree of the \(i\)-th Casimiar invariants of \(\mathfrak{g}\).</li>
+							<li>For a \(d\)-dimensional minuscule representation \(\rho\) of \(\mathfrak{g}\), we define a <em>spectral cover</em> \( \Sigma_\rho \),
+								\[
+									\Sigma_\rho = \left\{  \lambda\, \big|\, \det \left[ \lambda\, I_d - \rho(\varphi(z)) \right] = 0 \right\} \subset T^*C,
+								\]
+								where \(\varphi(z)\) is a \(\mathfrak{t}/W\)-valued 1-form field whose Casimirs are \( \phi_{w_i}(z) \), and \(\mathfrak{t}\) and \(W\) are the Cartan subalgebra and the Weyl group of \(\mathfrak{g}\), respectively.
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Sheets of the cover correspond to weights of <span "id=font_weight_normal">\(\rho\)</span></h3>
+						<ul>
+							<li>There is a natural projection map \(\pi:\Sigma_{\rho}\rightarrow C\) that presents \(\Sigma_\rho\) as a ramified \(d\)-sheeted covering of \(C\).</li> 
+							<li>Denoting the weights of \(\rho\) by \(\nu_j,\ (j = 1, \ldots, d)\), the sheets above a generic \(z \in C\) are
+							\[\begin{align}
+								\pi^{-1}(z) &= 
+								\Big\{ \lambda \in T^{*}C \,\Big|\,
+									\prod_{j = 1}^{d} \left(\lambda - x_j(z)\,\mathrm{d} z \right) = 0 
+							 	\Big\},
+								\\
+								x_j(z)\,\mathrm{d} z &= \langle \nu_j, \varphi(z) \rangle \in \mathbb{C},
+							\end{align}\]
+							where \(\langle\cdot,\cdot\rangle\) denotes the natural pairing of \(\mathfrak{t}^{*}\) and \(\mathfrak{t}\). 
+						</ul>
+					</section>
+
+					<section>
+						<h3>Branch points/cuts correspond to elements of <span id="font_weight_normal">\( W(\mathfrak{g}) \)</span></h3>
+						<ul>
+							<li>Assume that we trivialized the spectral cover, i.e. we ordered the eigenvalues of \(\rho(\varphi)\) on \(C \setminus \{ \text{branch points and cuts}\}\). 
+							<li>Monodromy of \(\varphi\) around a square-root branch point is given by a Weyl reflection \(w_\alpha\) of a root \(\alpha \in \Phi(\mathfrak{g})\), thereby corresponding to a face of a fundamental Weyl chamber.</li>
+							<li>A higher order branch point corresponds to an edge or the vertex of a fundamental Weyl chamber.</li>
+							<li>With a mild confusion, a square-root branch point is labeled by a root \(\alpha \in \Phi(\mathfrak{g})\), and a higher-order branch point is labeled by an ordered set of roots.
+						</ul>
+					</section>
+
+					<section>
+						<h3>Example: <span id="font_weight_normal">\(\mathfrak{g} = \mathrm{A}_2,\ \dim(\rho) = 3\)</span></h3>
+						\[\begin{align}
+							\Sigma_\rho: &(\lambda - x_1(z)\dd z)(\lambda - x_2(z)\dd z)(\lambda - x_3(z)\dd z) = \\
+								&= \lambda^3 + \phi_2(z) \dd z^2 \lambda + + \phi_3(z) \dd z^3 = 0.
+						\end{align}\]
+						<br/>
+						<img src="figures/tikz/Sigma_rho_example_1.svg" style="background:none; box-shadow:none; border:none; float: left; vertical-align:middle; width: 400px"/>
+						<img src="figures/tikz/Sigma_rho_example_2.svg" style="background:none; border:none; box-shadow:none; float: middle; vertical-align:middle; width: 400px"/>
+						<img src="figures/sage/A_2_chamber.png" style="background:none; border:none; box-shadow:none; float: right; vertical-align:middle; width: 400px"/>
+					</section>
+					
+				</section>
+
+				<section>
+					<h2>ADE Spectral Network</h2>
+				</section>
+
+				<section>
+					<section>
+						<h2>How to construct an ADE spectral network</h2>
+						<div style="width: 600px; float: left">
+							<ul>
+								<li>An \(\cS\)-wall is</li>
+								<ul>
+									<li>sourced by either a branch point (primary) or a joint (descendant),</li>
+									<li>labled by a root,</li>
+									<li>grown according to</li>
+									\[\begin{align}
+										&\partial_{t} \lambda_\alpha = \partial_{t} \langle\alpha,\varphi\rangle = \partial_{t} \langle\nu_i - \nu_j,\varphi\rangle =
+										\\
+										&= (x_i - x_j) \frac{\partial z}{\partial t} = e^{i\vartheta}.
+									\end{align}\]
+									
+								</ul>
+								<li>There is a joint iff the two \(\cS\)-walls carry roots that sum up to a root.</li>
+								<li>A one-way street \(p\) is a segment of an \(\cS\)-wall delimited by branch points or joints.</li>
+								<li>A spectral network \(\cW_\vartheta\) is a network of \(\cS\)-wall for a given \(\vartheta\).</li>
+							</ul>
+						</div>
+
+						<img src="figures/tikz/spectral_network_example.svg" style="background:none; border:none; box-shadow:none; width: 600px; float: right;"/>
+					</section>
+
+					<section>
+						<iframe src="http://het-math2.physics.rutgers.edu/loom/config" style="border: 1px black solid; width: 1280px; height: 850px;"></iframe>
+					</section>
+
+				</section>
+				
+				<section>
+					<h2>Physical data from an ADE spectral network</h2>
+
+					<section>
+						<br/><br/>
+						<h3>2d defect of 4d ADE class S theory</h3>
+						<ul>
+							<li>For a 4d \(\cN = 2\) ADE class S theory we can define a 2d surface defect \(\bS_{z_0, \rho}\) for \(z_0 \in C\) and a minuscule representation \(\rho\) of \(\fg\), which is a half-BPS object and preserves \(\cN = (2, 2)\) SUSY.</li>
+							<!-- <li>When \(z_0\) is away from a branch point, \(\bS_{z_0, \rho}\) has \(\dim(\rho)\) distinct massive vacua.</li> -->
+						</ul>
+						<div style="width: 700px; float: left">
+							<ul>
+								<!-- <li>For a 4d \(\cN = 2\) ADE class S theory we can define a 2d surface defect \(\bS_{z_0, \rho}\) for \(z_0 \in C\) and a minuscule representation \(\rho\) of \(\fg\), which is a half-BPS object and preserves \(\cN = (2, 2)\) SUSY.</li> -->
+								<!-- <li>\(\bS_{z_0, \rho}\) is a half-BPS object and preserves \(\cN = (2, 2)\) SUSY.</li> -->
+								<li>When \(z_0\) is away from a branch point, \(\bS_{z_0, \rho}\) has \(\dim(\rho)\) distinct massive vacua.</li>
+								<li>A finite \(\cS_{\alpha}\)-wall from a branch point at $z_\mathrm{b}$ to $z=z_0$ gives a 2d BPS soliton that interpolates two ground states $(z_0, x_i)$ and $(z_0, x_j)$<!-- <span id="reference">[Gaiotto, Moore, Neitzke (2011)]</span></li> -->
+								<li>The central charge of the 2d BPS state is
+									\[\begin{align*}
+										Z = \int_{\tau_b}^{\tau_s} \lambda_{\alpha}(t) \frac{\partial t}{\partial \tau} d\tau = \int_{\tau_b}^{\tau_s} e^{i\theta} d\tau,
+									\end{align*}\]
+									where the branch point is at $z(\tau_b)$ and $z(\tau_s) = z_0$.</li>
+							</ul>
+						</div>
+						<iframe src="figures/loom_plots/coset_A_2.html" style="width: 550px; height: 700px; float: right; margin-top: -50px"></iframe>
+
+						<!-- <ul>
+							<li>The central charge of the 2d BPS state is
+									\[\begin{align*}
+										Z = \int_{\tau_b}^{\tau_s} \lambda_{\alpha}(t) \frac{\partial t}{\partial \tau} d\tau = \int_{\tau_b}^{\tau_s} e^{i\theta} d\tau,
+									\end{align*}\]
+									where the branch point is at $z(\tau_b)$ and $z(\tau_s) = z_0$.
+							</ul>
+						</ul> -->
+					</section>
+
+					<section>
+						<h3>2d soliton data</h3>
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>\(\cS_\alpha\)-wall carries a 2d soliton data
+									\[\begin{align}
+										&\left\{\left. (a,\mu(a))\, \right|\, a\in \Gamma(p), \mu(a)\in\bZ \right\},\\
+										&\Gamma(z_1) :=\bigcup_{(i,j)\in\cP_\alpha} \Gamma_{ij}(z_1),\\
+										&\cP_\alpha = \left\{ \left. (i, j)\, \right|\, \nu_j - \nu_i = \alpha \right\},
+									\end{align}\]
+									where \(\Gamma_{ij}(z_1)\) is a set of (\(\bZ_2\)-extended, \(\ker(Z)\)-equivalent classes of) relative homology classes of open paths on \(\Sigma_\rho\). 
+								</li>
+								<li>2d \(\cN=(2,2)\) theory on a surface defect \(\bS_{z_1, \rho}\) has a soliton \(a\) with \(\mu(a) = +1\), and \(\bS_{z_3, \rho}\) has a soliton \(c\) with \(\mu(c) = \mu(a) \cdot \mu(b) = +1\).</li>
+								<li>\(\mu(a) / \mu(a') = (-1)^{w(a, a')}\)</li>
+							</ul>
+						</div>
+						<img src="figures/tikz/2d_soliton_data.svg" style="background:none; border:none; box-shadow:none; width: 500px; float: right;"/>
+					</section>
+					<section>
+						<h3>Symmetry of 2d solitons</h3>
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>Let \(z\) be on a street of \(\cS_{\alpha}\), and let \((i,j), (i',j') \in \cP_{\alpha}\) be two distinct pairs. Then, for any soliton \(a \in \Gamma_{ij}(z)\), there is another soliton \(a' \in \Gamma_{i'j'}(z)\) with </li>
+								<ul>
+									<li>\(Z_{a'}=Z_{a}\),</li>
+									<li>\(\mu(a')=\mu(a)\),</li>
+									<li>supported on the same soliton tree \(\mathcal{T}_a\).</li>
+								</ul>
+								<li>Solitons are symmetric under the permutations of the pairs in \(\cP_{\alpha}\), i.e. the symmetry group is \(S_{k_\rho}\) where \(k_\rho = \left| \cP_\alpha \right|\).</li>
+							</ul>
+						</div>
+						<img src="figures/soliton_tree.svg" style="background:none; border:none; box-shadow:none; width: 500px; float: right;"/>
+					</section>
+
+					<section>
+						<h3><span id="font_weight_normal">\(\cK\)</span>-wall jump of <span id="font_weight_normal">\(\cW\)</span></h3>
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>For a one-parameter family of spectral networks, \(\cW_\vartheta\), there is \(\vartheta = \vartheta_\text{c}\) where a spectral network undergoes a topological jump, called a \(\cK\)</span>-wall jump.</li>
+								<li>At \(\vartheta = \vartheta_\text{c}\) a two-way street \(p\) appears.</li>
+								<li>We can construct a sub-network \(\cW_\text{c}\) that consists of two-way streets of \(\cW_\vartheta\) only.</li>
+							</ul>
+							<img src="figures/hypermultiplet_3d.png" style="background:none; border: none; box-shadow:none; width: 400px;"/>
+						</div>
+						<iframe src="figures/loom_plots/single_hyper.html" style="width: 550px; height: 700px; float: right;"></iframe>
+					</section>
+
+					<section>
+						<h3>4d BPS state</h3>
+						<ul>
+							<li>For a two-way street \(p\), calculate</li>
+							\[
+								Q(p) = 1+\sum_{\substack{\overline{a}\in\Gamma_{ij}(p)\\ \overline{b}\in\Gamma_{ji}(p)}}\mu(a)\mu(b)\,X_{\mathrm{cl}(ab)} = \prod_{n=1}^{\infty}\big(1 + X_{{n\overline{\gamma}_\mathrm{c}}}\big)^{\alpha_{{n{\gamma_\mathrm{c}}}}(p)}, \alpha_{{\gamma}}(p)\in\bZ.
+							\]
+							<li>For a \(\gamma = n \gamma_\text{c}\) obtain a (closed and oriented) path on \(\Sigma_\rho\),
+							\[
+								L({\gamma}) :=\sum_{p\in\cW_\mathrm{c}}\alpha_{{\gamma}}(p)\,\pi^{-1}(p).
+							\]
+							</li>
+							<li>The DSZ pairing of two 4d charges is
+							\[
+								\langle \gamma, \gamma' \rangle_{\text{DSZ}} = (1/k_\rho) \langle L(\gamma), L(\gamma')  \rangle.
+							\]
+							</li>
+							<li>The 4d BPS index of \(\gamma\) is
+								\[
+									\Omega(\gamma) = [L(\gamma)]/\check{\gamma},
+								\]
+							where \([L(\gamma)]\), \(\check{\gamma}\) are 1-cycles corresponding to \(L(\gamma)\) and \(\gamma\), respectively. Each of them is an orbit of a closure of a pair of 2d solitons under the permutation symmetry \(S_{k_\rho}\).
+							</li>
+						</ul>
+					</section>
+					<section>
+						<h3>Example: a single hypermultiplet</h3>
+						<div style="width: 800px; float: left">
+							<ul>
+								<li>Consider \(\fg = \gD_4\), \(\dim(\rho) = 4\). Then
+									\[\begin{align}
+										\cP_\alpha &= \{(12),(34)\},\ \cP_{-\alpha} = \{(21),(43)\}.\\
+									
+										Q(p) &= 1+ X_{a_{12}}X_{b_{21}} = 1+ X_{a_{34}}X_{b_{43}} \\
+											&= 1 + X_{\overline{\gamma}} \Rightarrow \alpha_{\gamma} = 1.\\
+									
+										L({\gamma}) &= p^{(2)}-p^{(1)} + p^{(4)}-p^{(3)}.\\
+									
+										\Omega({\gamma}) &= [L({\gamma})]/ \check{\gamma} = 1,
+									\end{align}\]
+									where \(\check{\gamma} = \check{\gamma}_{12}+ \check{\gamma}_{34}\) and
+									\[
+										\overline{\gamma}_{12} = \text{cl}(a_{12} b_{21}),\ \overline{\gamma}_{34} = \text{cl}(a_{34} b_{43}).
+									\]
+							</ul>
+						</div>
+						<img src="figures/single_hyper.svg" style="background:none; border:none; box-shadow:none; width: 400px; float: right;"/>
+					</section>
+				</section>
+
+				<section>
+					<h2>Applications of Spectral Network</h2>
+				</section>
+
+				<section>
+					<section>
+						<h2>2d SCFTs from Surface Defects</h2>
+						<ul>
+							<li>We can identify the 2d theory of a certain surface defect \(\bS_{z_0, \rho}\) by studying the structure of its ground state and BPS spectrum using spectral network.</li>
+							<li>When $z_0$ is at a branch point of an ADE spectral cover, the IR 2d theory on the defect is a Kazama-Suzuki coset model that admits a Landau-Ginzburg description. <span id="reference">[Hori, CYP, Tachikawa (2013)], [Longhi, CYP (2016)]</span>
+							</li>
+								\[\begin{align*}
+									\begin{array}{c|c}
+										\hline
+										G_k/H & c_{G_k/H} \\ \hline
+										\SU(n+m)_k/\SU(m) \times SU(n) \times \UU(1) & 3kmn/(k+m+n) \\
+										\SO(n+2)_k/\SO(n) \times SO(2) & 3kn/(k+n),\ n \geq 2 \\
+										\color{gray}{\SO(3)_k/\SO(2)} & \color{gray}{3kn/(k+2)} \\
+										\SO(2n)_k/\SU(n) \times \UU(1) & 3kn(n-1)/2(k+2n-2) \\
+										\color{gray}{\Sp(2n)_k/\SU(n) \times \UU(1)} & \color{gray}{3kn(n+1)/2(k+n+1)} \\
+										(\gE_6)_k/\SO(10) \times \UU(1) & 48k/(k+12) \\
+										(\gE_7)_k/\gE_6 \times \UU(1) & 81k/(k+18) \\
+										\hline
+									\end{array}
+								\end{align*}\]
+
+						</ul>
+					</section>
+					<section>
+						<h2>M2-branes ending near a ramification point of M5-branes</h2>
+						<div style="width: 800px; float: left">
+							<ul>
+								<li>Configuration of branes: \(k\) M2-branes between an M5-brane wrapping a curve \(F(z, x)\) and an M5' at \(z = z_0\), where \(x=X^4+i\,X^5\) and \(z=\exp(X^7+i\,X^{10})\).</li>
+							</ul>
+						</div>
+						<img src="figures/M_brane_2D_N_2_2.svg" style="background:none; border: none; box-shadow:none; width: 400px; float: right;"/>
+						
+							\[\begin{align*}
+								\begin{array}{l||c|c|c|c|c|c|c|c|c|c}
+									&X^0 & X^1 & X^2 & X^3 & x & X^6 & z & X^8 & X^9 \\
+									\hline 
+									\text{M5}& - & - & - & - & - & \cdot & z(x) & \cdot & \cdot  \\
+									\text{M5$'$}& - & - & \cdot & \cdot & - & \cdot & z_0 & - & - \\
+									\text{M2}& - & - & \cdot & \cdot & x_i & - & z_0 & \cdot & \cdot  
+								\end{array}
+							\end{align*}\]
+						
+						<ul>
+							<li>A flat M2-brane corresponds to a ground state of the 2d \(\mathcal{N}=(2,2)\) theory, and an M2-brane interpolating two ground states gives a BPS state of the 2d theory. <span id="reference">[Hanany, Hori (1997)], [Dorey (1998)]</span></li>
+							<li>When we move the M2-brane endpoint onto a ramification point of the M5, the BPS state becomes massless. <span id="reference">[Gaiotto, Moore, Neitzke (2011)]</span></li>
+						</ul>
+
+					</section>
+					<section>
+						<h2>2d <span id="font_weight_normal">$\mathcal{N}=(2,2)$</span> theory from multiple M2-branes</h2>
+
+						<ul>		
+							<li>The 2d theory from the $k$ M2-branes between the M5$'$ and the M5-brane wrapping a Seiberg-Witten curve
+							\[\begin{align*}
+								F(z, x) = x^N + (z - z_0)
+							\end{align*}\]
+							is described by a 2d $\cN=(2,2)$ Landau-Ginzburg model with chiral fields $X_1,\ldots,X_k$ and superpotential $W=W(X_1,\ldots,X_k)$, where 
+							\[\begin{gather*}
+								W(X_1,\ldots,X_k) = \sum_{b = 1}^{k} \frac{\sigma_b^{N+1}}{N+1} + (z - z_0) \sigma_b,\ 
+								X_b = \sum_{a_1 < \cdots < a_b} \prod_{i = 1}^{b}\sigma_{a_i},\ b = 1, \ldots, k.
+							\end{gather*}\]
+							<span id="reference">[Hori, CYP, Tachikawa (2013)]</span></li>
+							</li>
+							<li>This LG model flows in the IR to a superconformal Kazama-Suzuki model with coset 
+								\[\begin{align*}
+									\frac{G}{H} = \frac{\SU(N)_1}{\mathrm{S} \left[\UU(k) \times \UU(N-k) \right]}. 
+								\end{align*}\]
+								<span id="reference">[Kazama, Suzuki (1988)], [Lerche, Vafa, Warner (1989)] [Gepner (1991)]</span></li>
+							<li>When $k=1$ it reduces to an $A_{N}$ minimal model SCFT, which is the IR limit of LG model with $W(X) = \frac{X^{N+1}}{N+1} + (z - z_0)X$. 
+								<span id="reference">[Tong (2006)]</span></li>
+					</section>
+
+					<!-- <section>
+						<h2>Deformations from the IR fixed point</h2>
+						<ul>
+							<li>$\mu_j$ gives a relevant deformation $\mathrm{tr} \left[ \mu_j  \Sigma^{N+1-j} \right]$ of of the LG model from the IR fixed point.</li>
+							<li>$\mu_j$ has a scaling dimension of
+								\[\begin{align*}
+									\Delta(\mu_j) = \frac{j}{N+1}.
+								\end{align*}\]</li>
+							<li>In general there are $N-1$ index 2 branch points of the Seiberg-Witten curve $F(z, x)$ on the $z$-plane whose locations are determined by $\mu_j$.</li>
+							<li>When all $\mu_j = 0$, the branch points collide at $z=z_0$, forming an index $N$ branch point.</li>
+						</ul>
+					</section> -->
+
+					<section>
+						<h2>Evidence for the claim</h2>
+						<ul>
+							<li>Number of ground states</li>
+							<ul>
+								<li>The number of ground states of the 2d theory from the brane configuration is $\binom{N}{k}$ due to the $s$-rule. <span id="reference">[Hanany, Witten (1996)], [Hanany, Hori (1997)]</span></li>
+								<li>The space of supersymmetric ground states of the LG model is naturally identified with the $k^\mathrm{th}$ fundamental representation $\omega_k = \wedge^k \mathbf{C}^N$ of $\SU(N)$, whose dimension is $\binom{N}{k}$. <span id="reference">[Lerche, Vafa, Warner (1989)]</span></li>
+							</ul>
+							<li>$k \leftrightarrow N-k$ duality</li>
+							<ul>
+								<li>The 2d theory from the brane configuration has a duality of $k \leftrightarrow N-k$ from the Hanany-Witten transition. <span id="reference">[Hanany, Witten (1996)]</li>
+								<li>The coset model is symmetric under $k \leftrightarrow N-k$: $\frac{G}{H} = \frac{\SU(N)_1}{\mathrm{S} \left[\UU(k) \times \UU(N-k) \right]}$</li>
+							</ul>
+							<li>We can match the BPS spectrum of the 2d theory from the brane configuration with the BPS spectrum of a Landau-Ginzburg model with the most relevant deformation $(z - z_0) X_1$. <span id="reference">[Fendley, Mathur, Vafa, Warner (1990)] [Fendley, Lerche, Mathur, Warner (1991)], [Lerche, Warner (1991)]</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Ground states and solitons of the 2d theory</h2>
+						<ul>
+							<li>Ground states: weights of $\rho$.</li>
+							<li>Solitons: roots connecting the weights.</li>
+							<li>To obtain the central charges of the solitons,
+							<ol>
+								<li>Project the weight space onto the Coxeter plane, which is the eigenspace of the Coxeter element $S$, a product of all simple Weyl reflections of the Weyl group of $\mathfrak{g}$ with eigenvalue $\exp(2\pi i/g^{\vee})$, where $g^{\vee}$ is the dual Coxeter number of $\mathfrak{g}$.</li>
+								<li>Identified the Coxeter plane with the $W$-plane of the 2d theory and read out the central charge of a soliton by measuring its projection on the plane.</li>
+							</ol>
+							</li>
+						</ul>
+						<div style="display: inline-block;">
+							<div style="text-align: center; height: 400px; float: left;">
+								<img src="figures/weight_space_A_2_k_1.png" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								$N = 2, k = 1$
+							</div>
+							<div style="text-align: center; height: 400px; float: left;">
+								<img src="figures/weight_space_A_3_k_1.png" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								$N = 3, k = 1$
+							</div>
+							<div style="text-align: center; height: 400px; float: left;">
+								<img src="figures/weight_space_A_3_k_2.png" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								$N = 3, k = 2$
+							</div>
+						</div>
+					</section>
+
+					<section>
+						<h2>Example: spectral network of $\frac{\SU(4)_1}{\mathrm{S} \left[\UU(3) \times \UU(1) \right]}$</h2>
+						<iframe src="figures/loom_plots/coset_A_3.html" style="width: 550px; height: 700px; float: left;"></iframe>
+						<img src="figures/weight_space_A_3_k_1.png" style="background:none; border:none; box-shadow:none; width: 500px; float: right;"/>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>Pure gauge theories</h2>
+						<ul>
+							<li>A 4d \(\cN = 2\) pure gauge theory with \(G = \SU(N),\, \SO(2N),\, \gE_6\), or \(\gE_7\) is described by
+								\[
+									\phi_{k}(z) = u_k \left(\frac{\dd z}{z}\right)^k,\quad 
+									\phi_{h^\vee}(z) = \left( \mu^{h^\vee} z + u_{h^\vee} + \frac{\mu^{h^\vee}}{z} \right) \left(\frac{\dd z}{z}\right)^{h^\vee},
+								\]
+								where \(\{u_k\}\) are Coulomb branch parameters and \(h^\vee\) is the dual Coxeter number of \(G\). <span id="reference">[Martinec, Warner (1995)] [Keller, Mekareeya, Song, Tachikawa (2011)]</span></li>
+							</li>
+							<li>At the origin of the Coulomb branch, \(u_k = 0\), there are two branch points whose ramification structure is given by the Coxeter element of \(W(\fg)\), and from each branch point \(\cS\)-walls of all root type emanates.</li>
+							<li>As we vary \(\vartheta\) from \(0\) to \(\pi\), there is a \(\cK\)-wall jump for each root of \(\fg\), leading to the BPS spectrum of a hypermultiplet for every root of \(\fg\), which is consistent with BPS quiver analysis. <span id="reference">[Alim, Cecotti, Cordova, Espahbodi, Rastogi, Vafa (2011)] [Longhi, CYP (2016)]</li>
+						</ul>
+					</section>
+					<section>
+						<h2>\(SU(2)\)</h2>
+						<iframe src="figures/loom_plots/pure_SU_2.html" style="border: 1px gray solid; width: 1280px; height: 850px;"></iframe>
+					</section>
+					<section>
+						<h2>\(SO(8)\)</h2>
+						<iframe src="figures/loom_plots/pure_SO_8.html" style="border: 1px gray solid; width: 1280px; height: 850px;"></iframe>
+					</section>
+				</section>
+
+				<section>
+					<section>
+						<h2>4d <span id="font_weight_normal">\(\cN=2\)</span> SCFT at Argyres-Douglas fixed point<br/>from 6d <span id="font_weight_normal">\(\cN = (2,0)\)</span> theory</h2>
+						<ul>
+							<li>When a 4d \(\cN = 2\) theory has mutually nonlocal massless states in the IR limit, it flows to an interacting SCFT. <span id="reference">[Argyres, Douglas (1995)], [Argyres, Plesser, Seiberg, Witten (1995)]</span></li>
+							<li>Compactifying the 6d \(\cN = (2,0)\) \(\gA_n\) theory on a Riemann sphere with an irregular puncture leads to a 4d \(\cN=2\) SCFT of Argyres-Douglas type. <span id="reference">[Gaiotto, Moore, Neitzke (2009)], [Cecotti, Neitzke, Vafa (2010)], [Alim, Cecotti, Cordova, Espahbodi, Rastogi, Vafa (2011)], [Bonelli, Maruyoshi, Tanzini (2012)], [Xie (2013)]</li>
+							<li>The theory on the Coulomb branch of an SCFT from an Argyres-Douglas fixed point has massive BPS states that become mutually nonlocal and massless when we flow the theory to the fixed point.</li>
+							<li>By studying the spectral network of the theory, we can find such BPS states.</li>
+						</ul>	
+					</section>
+
+					<section>
+						<h2><span id="font_weight_normal">\(\gD_N\)-class</span> Argyres-Douglas fixed point theory</h2>
+						<ul>
+							<li>The AD fixed point of a 4d \(\cN=2\) \(\SO(2N)\) pure gauge theory is claimed to be equivalent to that of a 4d \(\cN=2\) \(\SU(N)\), \(N_\mathrm{f} = 2\) theory. <span id="reference">[Eguchi, Hori, Ito, Yang (1996)]</span></li>
+							<li>At a point in the Coulomb branch moduli space where the number of BPS states is minimal, their BPS spectrum can be conveniently encoded into the BPS quiver that has the shape of a $\mathrm{D}_{N}$ Dykin diagram, and the fixed point theory (and its deformations) is termed a \(\mathrm{D}_{N}\)-class theory. <span id="reference">[Maruyoshi, CYP, Yan (2013)]</span> 
+							<li>Using spectral networks of a \(\mathrm{D}_{N}\)-class theory from the 4d \(\cN=2\) \(\SO(8)\) pure gauge theory, we can find that its BPS spectra across different chambers in the Coulomb branch moduli space are the same as those of a \(\mathrm{D}_{N}\)-class theory from the 4d \(\cN=2\) \(\SU(N)\), \(N_\mathrm{f} = 2\) theory. <span id="reference">[Longhi, CYP (2016)]</span></li>
+						</ul>
+					</section>
+
+					<section>
+						<h2><span id="font_weight_normal">\(\gD_4\)</span>-class AD theory with <span id="font_weight_normal">\(\mathfrak{g} = \gD_{N}\)</span></h2>
+						<ul>
+							<!-- <li>The Seiberg-Witten curve of a \(\mathrm{D}_{N}\)-class theory with \(\mathfrak{g} = \gD_{N}\) is obtained by choosing
+								\[\begin{align}
+									\phi_k &= s_k \left(\dd z \right)^k, \quad (k \neq h^\vee = 2N-2),\\ 
+									\phi_{h^\vee} &= \left( s_{h^\vee} + z^2 \right) (\mathrm{d} z)^{h^\vee}.
+								\end{align}\]
+							</li> -->
+							<li>The Seiberg-Witten curve of a \(\mathrm{D}_{4}\)-class theory with \(\mathfrak{g} = \gD_{N}\) is \(\lambda^8 + \phi_2 \lambda^6 + \phi_4 \lambda^4 + \phi_6 \lambda^2 + (\tilde{\phi}_4)^2\) with
+								\[\begin{align}
+									\phi_{2} = s_{2} (\dd z)^{2},\ \phi_{4} = s_{4} (\dd z)^{4},\ \phi_{6} = \left( s_{6} + z^2 \right) (\dd z)^{6},\ \tilde{\phi}_4 = \tilde{s}_4 (\dd z)^{4}.
+								\end{align}\]
+							</li>
+							<li>The flavor symmetry is enhanced to \(\SU(3)\) when \(s_4 = {s_2^2}/{4}\) and \(\tilde{s}_4 = 0\), then we can rescale the curve to absorb \(s_2\), therefore the theory has a complex 1-dimensional moduli space determined by \(s = s_6/(s_2)^3\).</li> 
+							<li>By studying the discriminant of the curve, we find that there are two singularities at \(s = s_\mathrm{t},\ s_\mathrm{s}\). Using spectral networks, we find that at \(s = s_\mathrm{t}\) three BPS states, a triplet of the flavor symmetry \(\SU(3)_\mathrm{f}\), become massless, and at \(s = s_\mathrm{s}\) a flavor singlet BPS state becomes massless.
+						</ul>
+						<img src="figures/tikz/D_4_s_plane.svg" width="600px" style="background:none; border:none; box-shadow:none;"/>
+					</section>
+
+					<section>
+						<h2>In the minimal BPS chamber</h2>
+						<iframe src="figures/loom_plots/D_4_AD_from_SO_8_min_BPS.html" style="width: 600px; height: 700px; float=left; vertical-align:middle;"></iframe>
+						<img src="figures/tikz/D_4_minimal_Z.svg" style="background:none; border:none; box-shadow:none; width: 400px; float=right; vertical-align:middle;"/>
+						<img src="figures/tikz/D_4_BPS_quiver.svg" style="background:none; border:none; box-shadow:none; width: 250px; float=right; vertical-align:middle; margin-top: 75px;"/>
+					</section>	
+
+					<section>
+						<h2>In the maximal BPS chamber</h2>
+						<iframe src="figures/loom_plots/D_4_AD_from_SO_8_max_BPS_sym.html" style="width: 600px; height: 700px; float: left; vertical-align:middle;"></iframe>
+						<img src="figures/tikz/D_4_maximal_symmetric_Z.svg" style="background:none; border:none; box-shadow:none; width: 600px; float: right; vertical-align:middle;"/>
+					</section>
+				</section>
+
+				<section>
+					<h2>Future directions</h2>
+					<ul>
+						<li>For a non-minuscule representation \(\rho\) and/or a non-simply-laced \(\fg\), study
+							<ul>
+								<li>2d theory on a defect \(\bS_{z, \rho}\) and its BPS spectrum, and</li>
+								<li>ABCDEFG spectral networks.</li>
+							</ul>
+						</li>
+						
+						<li>Cameral cover, defect, and spectral networks.</li>
+						<li>Use ADE spectral networks to generate BPS quivers of 4d ADE class S theories.</li>
+					</ul>
+				</section>	
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				// The "normal" size of the presentation, aspect ratio will be preserved
+			    // when the presentation is scaled to fit different resolutions. Can be
+			    // specified using percentage units.
+			    //width: 1280,
+			    //height: 720,
+
+			    width: 1280,
+			    height: 960,
+
+			    // Factor of the display size that should remain empty around the content
+			    margin: 0.1,
+
+			    // Bounds for smallest/largest possible scale to apply to content
+			    minScale: 0.2,
+			    maxScale: 1.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				// Flags if speaker notes should be visible to all viewers
+    			showNotes: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			    math: {
+    				//mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+    				mathjax: 'MathJax/MathJax.js',
+    				config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>

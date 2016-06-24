@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>A String Theorist's Journey with Python</title>
+
+		<meta name="description" content="SciPy 2016 talk">
+		<meta name="author" content="Chan Y. Park">
+
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/chan.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+		<script type="text/x-mathjax-config">
+			MathJax.Hub.Config({
+				TeX: {
+					Macros: {
+						cH: "{\\mathcal{H}}",
+						cP: "{\\mathcal{P}}",
+			 			cS: "{\\mathcal{S}}",
+			 			cK: "{\\mathcal{K}}",
+			 			cM: "{\\mathcal{M}}",
+			 			cN: "{\\mathcal{N}}",
+			 			cW: "{\\mathcal{W}}",
+			 			cX: "{\\mathcal{X}}",
+
+			 			SU: "{\\mathrm{SU}}",
+			 			SO: "{\\mathrm{SO}}",
+			 			Sp: "{\\mathrm{Sp}}",
+			 			UU: "{\\mathrm{U}}",
+
+			 			fg: "{\\mathfrak{g}}",
+			 			ft: "{\\mathfrak{t}}",
+
+			 			gA: "{\\mathrm{A}}",
+			 			gD: "{\\mathrm{D}}",
+			 			gE: "{\\mathrm{E}}",
+
+			 			dd: "{\\mathrm{d}}",
+			 			ee: "{\\mathrm{e}}",
+			 			ii: "{\\mathrm{i}}",
+			 			bR: "{\\mathbb{R}}",
+			 			bS: "{\\mathbb{S}}",
+			 			bZ: "{\\mathbb{Z}}",
+			 		},
+			 		equationNumbers: { autoNumber: "AMS" }
+				}
+			});
+		</script>
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+		
+		<style type="text/css">
+			/* OL { counter-reset: item }
+			OL LI { display: block }
+			OL LI:before { content: counters(item, ".") ". "; counter-increment: item } */
+			
+			#font_weight_normal {font-weight: normal;}
+			#tt {
+				font-family: "Lucida Console", Monaco, monospace;
+				/*font-family: "Courier New", Courier, monospace;*/
+			}
+			#reference {
+				font-size: 0.5em;
+				color: blue;
+			}
+			.reveal sup {
+				font-size: 0.5em;
+			}
+
+			#footnote{
+				text-align: left;
+				font-size: 0.5em;	
+			}
+			#caption{
+				text-align: center;
+				font-size: 0.75em;
+			}
+		</style>
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>A String Theorist's Journey<br/>with Python</h1>
+					
+					<h3>Chan Y. Park</h3>
+					<h4>New High Energy Theory Center, Rutgers University</h4>
+					<h4>Jul. 14, 2016 @ SciPy</h4>
+					<ul style="color:blue">
+						<li><a href="http://chan.physics.rutgers.edu/loom/">http://chan.physics.rutgers.edu/loom/</a></li>
+						<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/loom</a></li>
+						<li><a href="http://arxiv.org/abs/1601.02633">arXiv:1601.02633</a></li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Outline</h2>
+					<ul>
+						<li>Crash course: string theory</li>
+						<li>From a physics problem to a computational task</li>
+						<li>My journey of building a Python program</li>
+					</ul>
+				</section>
+
+				<section>
+					<section>
+						<h2>Experimental-Mathematical-Computational-Theoretical-Physics!</h2>
+						<ul>
+							<li>Recent development in both hardware and software of computational tools enabled us to study physical and mathematical problems by combining analytical and numerical methods together, which is proven to be complementary to the traditional pen-and-paper approach for various topics.
+						</ul>
+					</section>
+
+					<section>
+						<h2>What is string theory?</h2>
+						<ul>
+							<li>High-energy theory, more commonly known as theoretical particle physics, is a study to understand fundamental forces of nature.</li>
+							<li>It includes string theory, which is an effort to build a physical and mathematical framework to describe the fundamental forces in a unified way.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Why computational analysis in string theory?</h2>
+						<ul>
+							<li>String theorists are fond of mathematical and exact results. However, many problems in string theory pose significant challenges to a traditional pen-and-paper approach. We tackle such a problem by using computational method, which gives us hints toward the formulation of a complete answer.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>String theory, M-theory, and M-branes</h2>
+						<img src="figures/corners_of_string_theory.svg" style="width: 600px; background:none; border:none; box-shadow:none;"/>
+						<ul>
+							<li>M-theory is a prospective theory of quantum gravity that lives in an 11-dimensional spacetime.</li>
+							<li>10-dimensional string theories and 11-dimensional supergravity are believed to be different limits of M-theory.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>M-branes</h2>
+						<ul>
+							<li>M-theory has a higher-dimensional analogue of electromagnetic field</li>
+							<li>M-theory has two kinds of extended objects, <b>M2-branes</b> and <b>M5-branes</b>, that couple to the field electrically and magnetically, respectively.</li>
+    						<li>An M$p$-brane spans a $(p+1)$-dimensional spacetime.</li>
+    						<li>They saturate an inequality<sup>1</sup>,
+    						\[
+    							M \geq \left| Z \right|, 
+    						\]
+    						where $M$ is the mass and $Z$ is the central charge of the object.
+						</ul>
+						<div id="footnote">
+							<hr style="width: 200px; float: left;"></hr>
+							<br/>
+							[1] Bogomolny-Prasad-Sommerfield (BPS) bound
+						</div>
+					</section>
+
+					<section>
+						<h2>Supersymmetric gauge theory from M5-brane</h2>
+						<img src="figures/2_plus_4_M5.svg" width="800px" style="background:none; border:none; box-shadow:none;"/>
+						<ul>
+							<li>When we wrap \( N \) M5-branes on a punctured Riemann surface \(C\), we obtain a 4d superysymmetric gauge theory<sup>1</sup>. <span id="reference">[Gaiotto (2009)], [Gaiotto, Moore, Neitzke (2009)]</span></li>
+							<li>The M5-branes merge<sup>2</sup> into a single M5-brane wrapping a surface<sup>3</sup> \( \Sigma \), 
+    						\[
+    							f(z, x)=0,\ z \in C, \label{eq:SW_curve}
+    						\]
+    						which is a multi-sheeted cover \(\{ x_{i = 1, \ldots, N} \}\) over \(C\).</li>
+    						<li>\( \Sigma \) determines the low-energy physics of the theory. <span id="reference">[Seiberg, Witten (1994)]</span></li>
+						</ul>
+						<div id="footnote">
+							<hr style="width: 200px; float: left;"></hr>
+							<br/>
+							[1] \(\mathcal{N}=2\) \( \mathrm{SU}(N) \) theory of class S
+							<br/>
+							[2] in the Coulomb branch of a class S theory
+							<br/>
+							[3] a complex 1-dimensional curve called a Seiberg-Witten curve
+						</div>
+					</section>
+
+					<section>
+						<h2>Supersymmetric particles from M2-branes</h2>
+						<img src="figures/2_plus_4_M2_M5.svg" width="800px" style="background:none; border:none; box-shadow:none;"/>
+						<ul>
+							<li>A particle<sup>1</sup> of the theory is identified with an M2-brane ending along a closed curve \(\gamma\)<sup>2</sup> on \(\Sigma\). <span id="reference">[Henningson, Yi (1997)], [Mikhailov (1997)]</span></li>
+							<li>Its mass is given by integrating a 1-form<sup>3</sup> $\lambda = x\, \mathrm{d} z$ along \(\gamma\),
+				    			\[
+				    				M = |Z|,\ Z = \oint_\gamma \lambda.
+				    			\]
+				    		</li>
+						</ul>
+						<div id="footnote">
+							<hr style="width: 200px; float: left;"></hr>
+							<br/>
+							[1] a BPS state
+							<br/>
+							[2] $\gamma \in H_1(\Sigma; \mathbb{Z})$
+							<br/>
+							[3] Seiberg-Witten differential
+						</div>
+					</section>
+
+					<section>
+						<h2>Spectral network</h2>
+						<ul style="width: 1200px;">
+							<li>The boundary of the M2-brane satisfies a differential equation
+							<div style="padding: 20px 0px;"> $$\begin{align}
+				    			\frac{\partial}{\partial t} \left( \lambda_{j} - \lambda_{k} \right)= \left( x_j(z) - x_k(z) \right) \frac{\partial z}{\partial t} = e^{i \theta},\label{eq:class_S_diff_eq}
+				    		\end{align}$$</div>
+				    		where $t$ is a real parameter along $\gamma$, $\lambda_i = x_i\, \mathrm{d}z$ is the value of $\lambda$ on the $i$-th sheet, and $\theta= \arg(Z)$. <span id="reference">[Klemm, Lerche, Mayr, Vafa, Warner (1996)]</span></li>
+    						<li>Extending the previous construction, we can consider a set of curves on $C$ that are the solutions of ($\ref{eq:class_S_diff_eq}$) for a fixed $\theta$, which is called a <b>spectral network</b><sup>1</sup>. <span id="reference">[Gaiotto, Moore, Neitzke (2012)]</span></li>
+						</ul>
+						<div id="footnote">
+							<hr style="width: 200px; float: left;"></hr>
+							<br/>
+							[1] of the class $\mathcal{S}$ theory determined by $f(z, x)$
+						</div>
+					</section>
+				
+					<section>
+						<h2>Spectroscopy we learned at high school</h2>
+						<ul>
+							<li>A flame test is a qualitative method to identify an element.
+								<div style="display: block; margin: 1em auto 1em; height: 350px; width: 500px;">
+									<div style="text-align: center; height: 300px; float: left;">
+										<img src="figures/flametest_Cu.jpg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+										<br/>
+										Cu
+									</div>
+									<div style="text-align: center; height: 300px; float: right;">
+										<img src="figures/flametest_Na.jpg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+										<br/>
+										Na
+									</div>
+								</div>
+							</li>
+								
+							<li>An emission spectrum is used to quantitatively distinguish different elements.</li>
+								<div style="display: block; margin: 1em auto 1em; height: 150px; width: 1100px;">
+									<div style="text-align: center; height: 300px; float: left;">
+										<img src="figures/emission_spectrum_Cu.jpg" style="background:none; box-shadow:none; border:none; vertical-align:middle; height: 100px; width: 500px;"/>
+										<br/>
+										Cu
+									</div>
+									<div style="text-align: center; height: 300px; float: right;">
+										<img src="figures/emission_spectrum_Na.jpg" style="background:none; border:none; box-shadow:none; vertical-align:middle; height: 100px; width: 500px;"/>
+										<br/>
+										Na
+									</div>
+								</div>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Supersymmetric spectroscopy<br/>via spectral network</h2>
+
+						<div style="display: block; margin: 1em auto 425px; width: 900px;">
+							<div style="text-align: center; height: 300px; width: 300px; float: left;">
+								<img src="figures/AD_of_SU_3_N_f_2_SU_3_f_maximal_symmetric_SN_near_triplet.svg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								<p id="caption">spectral network</p>
+							</div>
+							<div style="text-align: center; height: 300px; width: 300px; float: left;">
+								<img src="figures/AD_of_SU_3_N_f_2_SU_3_f_maximal_symmetric_finite.svg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								<p id="caption">particles</p>
+							</div>
+							<div style="text-align: center; height: 300px; width: 300px; float: left;">
+								<img src="figures/AD_of_SU_3_N_f_2_SU_3_f_maximal_symmetric_Z_plot.svg" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+								<br/>
+								<p id="caption">central charges</p>
+							</div>
+							<!-- <div style="text-align: center; height: 300px; float: left;">
+								<img src="figures/figure_A3_k_2_weight.png" style="background:none; box-shadow:none; border:none; vertical-align:middle; margin-bottom: 22px;"/>
+								<br/>
+								<p id="caption">2d solitons
+							</div> -->
+						</div>
+
+						<ul>
+							<li>Using spectral networks, we can find the particle<sup>1</sup> spectrum of a given supersymmetric theory<sup>2</sup>.
+							<li>We use the spectrum to identify what the theory is, which is useful when the theory is strongly coupled and we lack any perturbative approach to understand it.</li>
+						</ul>
+
+						<div id="footnote">
+							<hr style="width: 200px; float: left;"></hr>
+							<br/>
+							[1] two-way streets of finite $\mathcal{S}$-walls corresponding to BPS states
+							<br/>
+							[2] the BPS spectrum of a 4d $\mathcal{N} = 2$ theory of class $\mathcal{S}$ on the Coulomb branch
+						</div>
+					</section>
+
+					<section>
+						<h2>Getting spectral networks using <!-- <span id="tt">loom</span> -->$\texttt{loom}$</h2>
+						<ul>
+							<li><a href="http://chan.physics.rutgers.edu/loom/">http://chan.physics.rutgers.edu/loom/</a></li>
+							<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/loom</a></li>
+						</ul>
+						<br/>
+						<iframe src="figures/loom_plots/pure_SU_3.html" style="width: 600px; height: 700px; float: left; vertical-align:middle;"></iframe>
+						<iframe src="figures/loom_plots/AD_from_pure_SU_3.html" style="width: 600px; height: 700px; float: left; vertical-align:middle;"></iframe>
+					</section>
+				</section>
+
+				<section>
+					<h2>From a physics problem to a computational task</h2>
+					<section>
+						<img src="figures/SN_step_1.svg" width="400px" style="background:none; border:none; box-shadow:none;"/>
+						<ol>
+							For a fixed value of $\theta$,
+							<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+							<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
+						</ol>
+					</section>
+				</section>
+					
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				// The "normal" size of the presentation, aspect ratio will be preserved
+			    // when the presentation is scaled to fit different resolutions. Can be
+			    // specified using percentage units.
+			    //width: 1280,
+			    //height: 720,
+
+			    width: 1280,
+			    height: 960,
+
+			    // Factor of the display size that should remain empty around the content
+			    margin: 0.1,
+
+			    // Bounds for smallest/largest possible scale to apply to content
+			    minScale: 0.2,
+			    maxScale: 1.5,
+
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+				// Flags if speaker notes should be visible to all viewers
+    			showNotes: false,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+			    math: {
+    				//mathjax: 'https://cdn.mathjax.org/mathjax/latest/MathJax.js',
+    				mathjax: 'MathJax/MathJax.js',
+    				config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+				},
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/math/math.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
