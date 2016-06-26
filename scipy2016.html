@@ -182,9 +182,9 @@
 						<ul>
 							<li>When we wrap \( N \) M5-branes on a punctured Riemann surface \(C\), we obtain a 4d superysymmetric gauge theory<sup>1</sup>. <span id="reference">[Gaiotto (2009)], [Gaiotto, Moore, Neitzke (2009)]</span></li>
 							<li>The M5-branes merge<sup>2</sup> into a single M5-brane wrapping a surface<sup>3</sup> \( \Sigma \), 
-    						\[
+    						$$\begin{align}
     							f(z, x)=0,\ z \in C, \label{eq:SW_curve}
-    						\]
+    						\end{align}$$
     						which is a multi-sheeted cover \(\{ x_{i = 1, \ldots, N} \}\) over \(C\).</li>
     						<li>\( \Sigma \) determines the low-energy physics of the theory. <span id="reference">[Seiberg, Witten (1994)]</span></li>
 						</ul>
@@ -326,16 +326,259 @@
 
 				<section>
 					<h2>From a physics problem to a computational task</h2>
-					<section>
-						<img src="figures/SN_step_1.svg" width="400px" style="background:none; border:none; box-shadow:none;"/>
-						<ol>
-							For a fixed value of $\theta$,
-							<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
-							<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
-						</ol>
+
+					<section data-transition="none" style="text-align: left;">
+
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>For a fixed value of $\theta$,</li>
+								<ol>
+									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li style="visibility: hidden;">Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
+									<li style="visibility: hidden;">Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
+									<li style="visibility: hidden;">Find intersections from the newly grown curves and repeat the process.</li>
+								</ol>
+								<li style="visibility: hidden;">The set of curves obtained this way is a spectral network $\mathcal{W}_\theta$.</li>
+							</ul>
+							<div id="footnote">
+								<hr style="width: 200px; float: left; visibility: hidden;"></hr>
+								<br/>
+								<span style="visibility: hidden;">[1] $\mathcal{S}$-walls</span>
+								<br/>
+								<span style="visibility: hidden;">[2] roots of the $\mathcal{S}$-walls sum up to another root of the Lie algebra associated to the theory of class $\mathcal{S}$</span>
+							</div>
+						</div>
+
+						<img src="figures/SN_step_1.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
 					</section>
-				</section>
+
+					<section data-transition="none" style="text-align: left;">
+
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>For a fixed value of $\theta$,</li>
+								<ol>
+									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
+									<li style="visibility: hidden;">Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
+									<li style="visibility: hidden;">Find intersections from the newly grown curves and repeat the process.</li>
+								</ol>
+								<li style="visibility: hidden;">The set of curves obtained this way is a spectral network $\mathcal{W}_\theta$.</li>
+							</ul>
+							<div id="footnote">
+								<hr style="width: 200px; float: left;"></hr>
+								<br/>
+								<span>[1] $\mathcal{S}$-walls</span>
+								<br/>
+								<span style="visibility: hidden;">[2] roots of the $\mathcal{S}$-walls sum up to another root of the Lie algebra associated to the theory of class $\mathcal{S}$</span>
+							</div>
+						</div>
+
+						<img src="figures/SN_step_2.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+					</section>
+
+					<section data-transition="none" style="text-align: left;">
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>For a fixed value of $\theta$,</li>
+								<ol>
+									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
+									<li>Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
+									<li style="visibility: hidden;">Find intersections from the newly grown curves and repeat the process.</li>
+								</ol>
+								<li style="visibility: hidden;">The set of curves obtained this way is a spectral network $\mathcal{W}_\theta$.</li>
+							</ul>
+							<div id="footnote">
+								<hr style="width: 200px; float: left;"></hr>
+								<br/>
+								<span>[1] $\mathcal{S}$-walls</span>
+								<br/>
+								<span>[2] roots of the $\mathcal{S}$-walls sum up to another root of the Lie algebra associated to the theory of class $\mathcal{S}$</span>
+							</div>
+						</div>
+
+						<img src="figures/SN_step_3.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+					</section>
+
+					<section data-transition="none" style="text-align: left;">
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>For a fixed value of $\theta$,</li>
+								<ol>
+									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
+									<li>Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
+									<li>Find intersections from the newly grown curves and repeat the process.</li>
+								</ol>
+								<li style="visibility: hidden;">The set of curves obtained this way is a spectral network $\mathcal{W}_\theta$.</li>
+							</ul>
+							<div id="footnote">
+								<hr style="width: 200px; float: left;"></hr>
+								<br/>
+								<span>[1] $\mathcal{S}$-walls</span>
+								<br/>
+								<span>[2] roots of the $\mathcal{S}$-walls sum up to another root of the Lie algebra associated to the theory of class $\mathcal{S}$</span>
+							</div>
+						</div>
+
+						<img src="figures/SN_step_4.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+					</section>
 					
+					<section data-transition="none" style="text-align: left;">
+						
+						<div style="width: 700px; float: left">
+							<ul>
+								<li>For a fixed value of $\theta$,</li>
+								<ol>
+									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
+									<li>Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
+									<li>Find intersections from the newly grown curves and repeat the process.</li>
+								</ol>
+								<li>The set of curves obtained this way is a spectral network $\mathcal{W}_\theta$.</li>
+							</ul>
+							<div id="footnote">
+								<hr style="width: 200px; float: left;"></hr>
+								<br/>
+								<span>[1] $\mathcal{S}$-walls</span>
+								<br/>
+								<span>[2] roots of the $\mathcal{S}$-walls sum up to another root of the Lie algebra associated to the theory of class $\mathcal{S}$</span>
+							</div>
+						</div>
+
+						<img src="figures/full_SN.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+					</section>
+
+					<section>
+						<div style="width: 700px; float: left; text-align: left;">
+
+							<p>Now we generate a family of spectral networks for various values of $\theta$ between $0$ and $\pi$, and look for a topological change of the networks.</p>
+								
+								<div style="text-align: center; width: 300px; float: right;">
+									<img src="figures/hypermultiplet_3d.png" style="background:none; border: none; box-shadow:none;"/>
+									<br/>
+									<p id="caption">M5- and M2-branes at $\theta_\mathrm{c}$</p>
+								</div>
+								
+							<p>When it occurs at $\theta = \theta_\mathrm{c}$, there is a subnetwork $\mathcal{W}_\mathrm{c} \subset \mathcal{W}_{\theta_\mathrm{c}}$ of finite length and a particle corresponding to $\mathcal{W}_\mathrm{c}$.</p>
+
+							<p>Collect all the particles and calculate the spectrum<sup>1</sup>, and use the information to identify the 4d theory.</p>
+
+							<div id="footnote">
+								<hr style="width: 200px; float: left;"></hr>
+								<br/>
+								<span>[1] gauge, flavor, and central charges of the BPS states.</span>
+							</div>
+
+						</div>
+						<iframe src="figures/loom_plots/single_hyper.html" style="width: 550px; height: 700px; float: right;"></iframe>
+					</section>
+
+				</section>
+
+				<section>
+					<h2>$\texttt{loom}$, a Python program to generate spectral networks</h2>
+					<ul>
+						<li>Previously several Mathematica codes for generating spectral networks existed.</li>
+						<ul>
+							<li>Could not collaborate effectively, also overlapping investment of time and effort to maintain separate codes.</li>
+							<li>Issues with the number of licenses available, with the accuracy and efficiency of numerical calculations, and with hard-to-understand internal warnings and errors.</li>
+						</ul>
+						<li>I launched an open-source project $\texttt{loom}$ on GitHub and started a collaboration with string theorists working on spectral networks.</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Why is $\texttt{loom}$ written in Python?</h2>
+					<ul>
+						<li>Easy enough for my physicist colleagues without programming experience to learn, yet being a full-fledged standard programming language.</li>
+						<li>Open-source</li>
+							<ul>
+								<li>Can look into what's going on in the box when I want.</li>
+								<li>A type of software license that goes well with academic researches.</li>
+							</ul>
+						<li>Active and helpful Python community.</li>
+						<li>Diverse and powerful libraries, including a suite of scientific libraries provided by the ScyPy stack.</li>
+						<li>Easy to work with SageMath to use its extensive math library.	</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Python in the core module of $\texttt{loom}$</h2>
+					<section>
+						<h3>Symbolic math</h3>
+						<ul>
+							<li>SymPy</li>
+							<ul>		
+								<li>Extracting from the Riemann surface ($\ref{eq:SW_curve}$) the differential equation ($\ref{eq:class_S_diff_eq}$) requires symbolic mathematics.</li>
+							</ul>
+							
+							<li>SageMath</li>
+							<ul>
+								<li>SageMath's extensive knowledge over Lie algebras and their representations is crucial in studying spectral networks. </li>
+								<li>Sometimes the equation ($\ref{eq:SW_curve}$) for the Riemann surface is so complex that we need a more powerful library than SymPy, where SageMath is useful.</li>
+								<li>$\texttt{loom}$ calls SageMath via $\texttt{subprocess}$.</li>
+							</ul>	
+						</ul>
+					</section>
+					
+					<section>
+						<h3>Numerical analysis</h3>
+						<ul>
+							<li>ScyPy</li>
+							<ul>
+								<li>Solving the differential equation ($\ref{eq:class_S_diff_eq}$) is done using $\texttt{scipy.integrate}$</li>
+							</ul>
+							
+							<li>NumPy</li>
+							<ul>
+								<li>Thanks to its contiguous memory model, $\texttt{numpy.ndarray}$ is not only useful in storing data and exchange it with external C/C++ libraries but also very fast when doing a vectorized operation on the data.</li>
+							</ul>
+
+							<li> The Computational Geometry Algorithms Library (CGAL, <a href="http://www.cgal.org/">http://www.cgal.org/</a>)</li>
+								<ul>
+					    		<li> The geometric problem of finding intersections between curves in 2d was done using the sweep-line algorithm of CGAL, a C++ library for geometric algorithms. </li>
+								<li> Python is great in glueing the C++ library into $\texttt{loom}$.</li>
+							</ul>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Framework</h3>
+						<ul>
+							<li>$\texttt{multiprocessing}$</li>
+						    <ul>
+						    	<li>Generating a family of spectral networks is naturally a collection of parallel jobs.</li>
+						    	<li>Python has a native support of multiprocessing, which boosts the throughput of $\texttt{loom}$ linearly with the number of available CPU's.</li>
+							</ul>
+							
+							<li>$\texttt{logging}$</li>
+							<ul>
+								<li>The core of $\texttt{loom}$ and its front-end is split into separate processes, both for multiprocessing and for the implementation of UI's.</li>
+								<li>Use of $\texttt{logging}$ and $\texttt{multiprocessing.Queue}$ makes it easy to deliver messages from the core module to the front-end.</li>
+							</ul>
+						</ul>
+					</section>
+
+					<section>
+						<h3>Data storage</h3>
+						<ul>
+							<li>$\texttt{loom}$ carries a large data (~1GB) in various types when studying a complicated spectral network. It takes hours to generate such a data, so it is crucial for a successful research and collaboration to efficiently save and load the data.</li>
+							
+							<li>Various parameters, both symbolic and numeric, are conveniently managed using a configuration file formatted by $\texttt{ConfigParser}$.</li>
+							
+							<li>JSON</li>
+							<ul>
+								<li>Although $\texttt{pickle}$ is useful when saving data in the middle of debugging, the excellent portability of JSON and Python's support for it is very important as my collaboration includes Linux, Mac, and Windows users.</li>
+								<li>Unexpectedly fast when saving and loading a large data, and Python's support for $\texttt{threading}$ makes an IO delay essentially nonexsitent.</li>
+								<li>One downside of using a JSON data is its large size due to the format, however using $\texttt{zipfile}$ to create an archived file in memory eased the burden quite a bit.</li>
+							</ul>
+						</ul>
+					</section>
+
+				</section>
+
 			</div>
 
 		</div>
