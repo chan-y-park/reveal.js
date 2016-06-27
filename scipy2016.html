@@ -596,13 +596,21 @@
 					</section>
 
 					<section>
+						<br/><br/>
 						<h3>GUI</h3>
-
+						<ul>
+							<li>For the convenience of use when running $\texttt{loom}$ on a local machine, a GUI is implemented using $\texttt{Tkinter}$.</li>
+							<li>Labeling the information of each object in a plot is done using $\texttt{mpldatacursor}$.</li>
+						</ul>
 						<img src="figures/loom_desktop.png" style="height: 500px; background:none; border: none; box-shadow:none;"/>
 					</section>
 
 					<section>
 						<h3>Web application &amp; UI</h3>
+						<ul>
+							<li>To help friend theorists to use $\texttt{loom}$ without learning and/or installing Python, I built a WSGI application based on Flask that runs on an Apache web server and manages multiple instances of $\texttt{loom}$ processes.</li>
+							<li>Web UI is implemented using JavaScript and callbacks for Bokeh, as well as Server-Sent Events (SSE) for receiving messages from $\texttt{loom}$.</li>
+						</ul>
 					</section>
 
 					<section>
@@ -610,6 +618,28 @@
 						<iframe src="http://chan.physics.rutgers.edu/loom/config" style="border: 1px black solid; width: 1280px; height: 850px;"></iframe>
 					</section>
 
+				</section>
+
+				<section>
+					<h2>Epilogue</h2>
+					<ul>
+						<li>Python provides a wonderful suite of libraries that are useful to theoretical physicists.</li>
+						<li>Mathematica is very popular among theoretical physicists thanks to its user-friendliness. But we hope to have an open-source alternative and I see a great potential in Python, SageMath, and Jupyter Notebook.</li>
+						<li>Special  thanks to</li>
+						<ul>
+							<li>Pietro Longhi at Uppsala University, who is a co-author of my paper about spectral network and a key contributor to $\texttt{loom}$.</li>
+							<li>Andy Neitzke at UT Austin, who is one of the pioneers in the study of spectral networks, and has been inputting great feedbacks to $\texttt{loom}$.</li>
+						</ul>
+					</ul>
+				</section>
+
+				<section>
+					<h2>More information</h2>
+					<ul>
+						<li>Source code for $\texttt{loom}$ can be found at <a href="https://github.com/chan-y-park/loom">https://github.com/chan-y-park/loom</a>.</li>
+						<li>The preprint of the paper studying physics using $\texttt{loom}$ is available at <a href="http://arxiv.org/abs/1601.02633">http://arxiv.org/abs/1601.02633</a>.</li>
+						<li>One of the physics talk slides based on $\texttt{loom}$ and the paper is at <a href="http://chan.physics.rutgers.edu/reveal.js/perimeter.html">http://chan.physics.rutgers.edu/reveal.js/perimeter.html</a>.</li>
+					</ul>
 				</section>
 
 			</div>
