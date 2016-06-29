@@ -108,7 +108,7 @@
 
 		<div class="reveal">
 			<div class="footer">
-				<a href="http://chan.physics.rutgers.edu/loom/">http://chan.physics.rutgers.edu/loom/</a>
+				<a href="http://chan.physics.rutgers.edu/scipy2016/">http://chan.physics.rutgers.edu/scipy2016/</a>
 			</div>
 			
 			<!-- Any section element inside of this container is displayed as a slide -->
@@ -128,24 +128,62 @@
 				</section>
 
 				<section>
+					<section>
+						<iframe src="http://chan.physics.rutgers.edu/loom" style="border: 1px black solid; width: 1280px; height: 800px;"></iframe>
+					</section>
+
+					<section>
+						<iframe src="http://chan.physics.rutgers.edu/loom/plot?data=AD_from_pure_SU_3" style="border: 1px black solid; width: 1280px; height: 800px;">
+						</iframe>
+					</section>					
+<!--
+					<h2>$\texttt{loom}$ at the end of the journey (for now)</h2>
+
+					<section>
+						<br/>
+						<h3>Front page</h3>
+						<iframe src="http://chan.physics.rutgers.edu/loom" style="border: 1px black solid; width: 1280px; height: 800px;"></iframe>
+					</section>
+
+					<section>
+						<br/>
+						<h3>Configuration page</h3>
+						<iframe src="http://chan.physics.rutgers.edu/loom/config" style="border: 1px black solid; width: 1280px; height: 800px;"></iframe>
+					</section>
+
+					<section>
+						<br/>
+						<h3>Plot page</h3>
+						<iframe src="http://chan.physics.rutgers.edu/loom/plot?data=AD_from_pure_SU_3" style="border: 1px black solid; width: 1280px; height: 800px;"></iframe>
+					</section>
+-->
+				</section>
+
+				<section>
 					<h2>Outline</h2>
 					<ul>
 						<li>Crash course: string theory</li>
 						<li>From a physics problem to a computational task</li>
-						<li>My journey of building a Python program</li>
+						<!-- <li>My journey of building a Python program</li> -->
+						<li>How I built $\texttt{loom}$ with Python</li>
 					</ul>
 				</section>
 
 				<section>
-					<section>
+					<!-- <section>
 						<h2>Experimental-Mathematical-Computational-Theoretical-Physics!</h2>
 						<ul>
 							<li>Recent development in both hardware and software of computational tools enabled us to study physical and mathematical problems by combining analytical and numerical methods together, which is proven to be complementary to the traditional pen-and-paper approach for various topics.
 						</ul>
-					</section>
+					</section> -->
 
 					<section>
 						<h2>What is string theory?</h2>
+<!--
+						<img src="figures/open_and_closed_strings.svg" style="width: 400px; background:none; border:none; box-shadow:none;"/>
+						<img src="figures/world_lines_and_world_sheet.svg" style="width: 400px; background:none; border:none; box-shadow:none;"/>
+-->
+						<img src="figures/strings_and_D_branes.png" style="width: 400px; background:none; border:none; box-shadow:none;"/>
 						<ul>
 							<li>High-energy theory, more commonly known as theoretical particle physics, is a study to understand fundamental forces of nature.</li>
 							<li>It includes string theory, which is an effort to build a physical and mathematical framework to describe the fundamental forces in a unified way.</li>
@@ -154,8 +192,11 @@
 
 					<section>
 						<h2>Why computational analysis in string theory?</h2>
+						<!-- <img src="figures/string_theory_research.jpg" style="width: 400px; background:none; border:none; box-shadow:none;"/> -->
+						<img src="figures/cat_and_strings.jpg" style="width: 360px; background:none; border:none; box-shadow:none;"/>
 						<ul>
 							<li>String theorists are fond of mathematical and exact results. However, many problems in string theory pose significant challenges to a traditional pen-and-paper approach. We tackle such a problem by using computational method, which gives us hints toward the formulation of a complete answer.</li>
+							<li>Recent development in both hardware and software of computational tools enabled us to study physical and mathematical problems by combining analytical and numerical methods together.</li>
 						</ul>
 					</section>
 
@@ -171,7 +212,7 @@
 					<section>
 						<h2>M-branes</h2>
 						<ul>
-							<li>M-theory has a higher-dimensional analogue of electromagnetic field</li>
+							<li>M-theory has a higher-dimensional analogue of electromagnetic field.</li>
 							<li>M-theory has two kinds of extended objects, <b>M2-branes</b> and <b>M5-branes</b>, that couple to the field electrically and magnetically, respectively.</li>
     						<li>An M$p$-brane spans a $(p+1)$-dimensional spacetime.</li>
     						<li>They saturate an inequality<sup>1</sup>,
@@ -344,7 +385,7 @@
 							<ul>
 								<li>For a fixed value of $\theta$,</li>
 								<ol>
-									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Find branch points of $f(x, z) = 0$ on&nbsp;the&nbsp;$z$-plane.</li>
 									<li style="visibility: hidden;">Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
 									<li style="visibility: hidden;">Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
 									<li style="visibility: hidden;">Find intersections from the newly grown curves and repeat the process.</li>
@@ -369,7 +410,7 @@
 							<ul>
 								<li>For a fixed value of $\theta$,</li>
 								<ol>
-									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Find branch points of $f(x, z) = 0$ on&nbsp;the&nbsp;$z$-plane.</li>
 									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
 									<li style="visibility: hidden;">Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
 									<li style="visibility: hidden;">Find intersections from the newly grown curves and repeat the process.</li>
@@ -393,7 +434,7 @@
 							<ul>
 								<li>For a fixed value of $\theta$,</li>
 								<ol>
-									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Find branch points of $f(x, z) = 0$ on&nbsp;the&nbsp;$z$-plane.</li>
 									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
 									<li>Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
 									<li style="visibility: hidden;">Find intersections from the newly grown curves and repeat the process.</li>
@@ -417,7 +458,7 @@
 							<ul>
 								<li>For a fixed value of $\theta$,</li>
 								<ol>
-									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Find branch points of $f(x, z) = 0$ on&nbsp;the&nbsp;$z$-plane.</li>
 									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
 									<li>Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
 									<li>Find intersections from the newly grown curves and repeat the process.</li>
@@ -442,7 +483,7 @@
 							<ul>
 								<li>For a fixed value of $\theta$,</li>
 								<ol>
-									<li>Find branch points of $f(x, z) = 0$ on the $z$-plane.</li>
+									<li>Find branch points of $f(x, z) = 0$ on&nbsp;the&nbsp;$z$-plane.</li>
 									<li>Plot curves<sup>1</sup> from the branch points by solving the differential equation (\ref{eq:class_S_diff_eq}).</li>
 									<li>Find intersections of the curves, and when the curves satisfy a certain condition<sup>2</sup>, plot a curve from the intersection according to (\ref{eq:class_S_diff_eq}).</li>
 									<li>Find intersections from the newly grown curves and repeat the process.</li>
@@ -489,30 +530,32 @@
 				</section>
 
 				<section>
-					<h2>$\texttt{loom}$, a Python program to generate spectral networks</h2>
-					<ul>
-						<li>Previously several Mathematica codes for generating spectral networks existed.</li>
+					<section>
+						<h2>$\texttt{loom}$, a Python program to generate spectral&nbsp;networks</h2>
 						<ul>
-							<li>Could not collaborate effectively, also overlapping investment of time and effort to maintain separate codes.</li>
-							<li>Issues with the number of licenses available, with the accuracy and efficiency of numerical calculations, and with hard-to-understand internal warnings and errors.</li>
-						</ul>
-						<li>I launched an open-source project $\texttt{loom}$ on GitHub and started a collaboration with string theorists working on spectral networks.</li>
-					</ul>
-				</section>
-
-				<section>
-					<h2>Why is $\texttt{loom}$ written in Python?</h2>
-					<ul>
-						<li>Easy enough for my physicist colleagues without programming experience to learn, yet being a full-fledged standard programming language.</li>
-						<li>Open-source</li>
+							<li>Previously there were several Mathematica codes for generating spectral networks.</li>
 							<ul>
-								<li>Can look into what's going on in the box when I want.</li>
-								<li>A type of software license that goes well with academic researches.</li>
+								<li>Could not collaborate effectively, also overlapping investment of time and effort to maintain separate codes.</li>
+								<li>Issues with the number of licenses available, with the accuracy and efficiency of numerical calculations, and with hard-to-understand internal warnings and errors.</li>
 							</ul>
-						<li>Active and helpful Python community.</li>
-						<li>Diverse and powerful libraries, including a suite of scientific libraries provided by the ScyPy stack.</li>
-						<li>Easy to work with SageMath to use its extensive math library.	</li>
-					</ul>
+							<li>I launched an open-source project $\texttt{loom}$ on GitHub and started a collaboration with string theorists working on spectral networks.</li>
+						</ul>
+					</section>
+
+					<section>
+						<h2>Why I chose Python to write $\texttt{loom}$</h2>
+						<ul>
+							<li>Easy enough for my physicist colleagues without programming experience to learn, yet being a full-fledged standard programming language.</li>
+							<li>Open-source</li>
+								<ul>
+									<li>Can look into what's going on in the box when I want.</li>
+									<li>A type of software license that goes well with academic researches.</li>
+								</ul>
+							<li>Active and helpful Python community.</li>
+							<li>Diverse and powerful libraries, including a suite of scientific libraries provided by the SciPy stack.</li>
+							<li>Easy to work with SageMath to use its extensive math library.	</li>
+						</ul>
+					</section>
 				</section>
 
 				<section>
@@ -537,7 +580,7 @@
 					<section>
 						<h3>Numerical analysis</h3>
 						<ul>
-							<li>ScyPy</li>
+							<li>SciPy</li>
 							<ul>
 								<li>Solving the differential equation ($\ref{eq:class_S_diff_eq}$) is done using $\texttt{scipy.integrate}$</li>
 							</ul>
@@ -639,7 +682,7 @@
 						<li>Special  thanks to</li>
 						<ul>
 							<li>Pietro Longhi at Uppsala University, who is a co-author of my paper about spectral network and a key contributor to $\texttt{loom}$.</li>
-							<li>Andy Neitzke at UT Austin, who is one of the pioneers in the study of spectral networks, and has been inputting great feedbacks to $\texttt{loom}$.</li>
+							<li>Andy Neitzke at UT Austin, who is one of the pioneers in the study of spectral networks and has been inputting great feedbacks to $\texttt{loom}$.</li>
 						</ul>
 					</ul>
 				</section>
