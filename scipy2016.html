@@ -125,16 +125,36 @@
 						<li><a href="http://github.com/chan-y-park/loom">http://github.com/chan-y-park/loom</a></li>
 						<li><a href="http://arxiv.org/abs/1601.02633">arXiv:1601.02633</a></li>
 					</ul>
+
+					<aside class="notes" data-markdown>
+						First of all thank you for coming to this talk. 
+
+						I am Chan Park, studying theoretical high-energy physics more commonly known as string theory and a postdoc at Rutgers University. 
+
+						Today I want to share with you my experience of using Python in my research project. 
+					</aside>
 				</section>
 
 				<section>
 					<section>
 						<iframe src="http://chan.physics.rutgers.edu/loom" style="border: 1px black solid; width: 1280px; height: 800px;"></iframe>
+						
+						<aside class="notes" data-markdown>
+							As a teaser, let me show you the end-product of the project, loom, whose web UI can be found at chan.physics.rutgers.edu/loom. 
+
+							Here you can see many colorful plots produced for real research, and you can generate your own spectral network by first going to the configuration page, inputting a few parameters, and then click ‘generate.’ 
+
+							Now you see loom working hard, and like a food network show, let me show you a prepared plot instead of waiting for a while, and here is one nice colorful plot.
+						</aside>
 					</section>
 
 					<section>
 						<iframe src="http://chan.physics.rutgers.edu/loom/plot?data=AD_from_pure_SU_3" style="border: 1px black solid; width: 1280px; height: 800px;">
 						</iframe>
+
+						<aside class="notes" data-markdown>
+							At the url shown in the lower left corner of the slide, you can find links to loom and also to this slide, so whenever you find my talk boring please visit the website and help yourself, and I will try to do my best so that my small server will not break down from the DDoS attack from this room.
+						</aside>
 					</section>					
 <!--
 					<h2>$\texttt{loom}$ at the end of the journey (for now)</h2>
@@ -167,6 +187,14 @@
 						<!-- <li>My journey of building a Python program</li> -->
 						<li>How I built $\texttt{loom}$ with Python</li>
 					</ul>
+
+					<aside class="notes" data-markdown>
+						Here is the outline of the talk. 
+
+						First, I will briefly tell you a little bit about string theory to set the scene. Then I will describe how to turn a string theory problem into a computational task. Lastly I will go over how Python is used in building loom. 
+
+						My goal is to illustrate how Python is integrated throughout the progress of this project, so that Python programmers and developers who want to know how a math-oriented theoretical physicist use Python, and scientists who are interested in using Python but don’t know where to start, can have a real-world example of a collaborative research project using Python.
+					</aside>
 				</section>
 
 				<section>
@@ -186,8 +214,16 @@
 						<img src="figures/strings_and_D_branes.png" style="width: 400px; background:none; border:none; box-shadow:none;"/>
 						<ul>
 							<li>High-energy theory, more commonly known as theoretical particle physics, is a study to understand fundamental forces of nature.</li>
-							<li>It includes string theory, which is an effort to build a physical and mathematical framework to describe the fundamental forces in a unified way.</li>
+							<li>It includes <b>string theory</b>, which is an effort to build <b>a physical and mathematical framework to describe the fundamental forces in a unified way</b>.</li>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							So, as a start of the physics part, let me tell you what a string theory is. 
+
+							More commonly known as theoretical particle physics, high-energy theory is a study to understand the fundamental forces of the universe, and you may have heard of the four: electromagnetic force, weak force, strong force, and gravity.
+
+							String theory is part of high energy theory. It started as a candidate theory of quantum gravity, and now it’s evolved into a field of study to build a physical and mathematical framework to describe the fundamental forces in a unified way.
+						</aside>
 					</section>
 
 					<section>
@@ -195,9 +231,18 @@
 						<!-- <img src="figures/string_theory_research.jpg" style="width: 400px; background:none; border:none; box-shadow:none;"/> -->
 						<img src="figures/cat_and_strings.jpg" style="width: 360px; background:none; border:none; box-shadow:none;"/>
 						<ul>
-							<li>String theorists are fond of mathematical and exact results. However, many problems in string theory pose significant challenges to a traditional pen-and-paper approach. We tackle such a problem by using computational method, which gives us hints toward the formulation of a complete answer.</li>
-							<li>Recent development in both hardware and software of computational tools enabled us to study physical and mathematical problems by combining analytical and numerical methods together.</li>
+							<li>String theorists are fond of mathematical and exact results. However, many problems in string theory pose significant challenges to a traditional pen-and-paper approach.</li>
+
+							<li>We tackle such a problem by using computational method, which <b>gives us hints toward the formulation of a complete answer</b>.</li>
+
+							<li>Recent progress in both hardware and software of computational tools enabled us to study physical and mathematical problems by combining analytical and numerical methods together.</li>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							Because of the nature of string theory, string theorists are fond of mathematical and exact result. However, such a beautiful moment when we have a concise and exact formula for a question rarely happens, and computational methods provide us great hints toward finding such an answer.
+
+							Also it's largely due to the recent progress of both hardwares and mathematical software packages that enabled us to combine analytic and numerical methods together.
+						</aside>
 					</section>
 
 					<section>
@@ -207,6 +252,14 @@
 							<li>M-theory is a prospective theory of quantum gravity that lives in an 11-dimensional spacetime.</li>
 							<li>10-dimensional string theories and 11-dimensional supergravity are believed to be different limits of M-theory.</li>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							Then let me introduce a few concepts from string theory that will appear in today's talk.
+
+							The first one is M-theory, which is sometimes called the mother of all string theories, because various string theories are believed to be different limits of M-theory.
+
+							M-theory lives in an eleven-dimensional spacetime, that is a ten-dimensional space plus one time direction. Then we usually wrap this eleven-dimensional theory onto a very small seven-dimensional space, so that we can obtain a four-dimensional spacetime that we live in.
+						</aside>
 					</section>
 
 					<section>
@@ -226,6 +279,14 @@
 							<br/>
 							[1] Bogomolny-Prasad-Sommerfield (BPS) bound
 						</div>
+
+						<aside class="notes" data-markdown>
+							M-theory has two kinds of extended objects, called M2-brane and M5-brane, which are main characters of today’s story. 
+
+							M2-brane spans 2 spatial direction and one time direction, hence the name M2, and M5-brane spans 5 spatial directions and one time direction. 
+
+							Each M-brane has a mass tied to a conserved quantity Z called a central charge, which is an analogue of electric and magnetic charges.
+						</aside>
 					</section>
 
 					<section>
@@ -234,9 +295,9 @@
 						<ul>
 							<li>When we wrap \( N \) M5-branes on a punctured Riemann surface \(C\), we obtain a 4d superysymmetric gauge theory<sup>1</sup>. <span id="reference">[Gaiotto (2009)], [Gaiotto, Moore, Neitzke (2009)]</span></li>
 							<li>The M5-branes merge<sup>2</sup> into a single M5-brane wrapping a surface<sup>3</sup> \( \Sigma \), 
-    						$$\begin{align}
+    						<div style="padding: 20px 0px;">$$\begin{align}
     							f(z, x)=0,\ z \in C, \label{eq:SW_curve}
-    						\end{align}$$
+    						\end{align}$$</div>
     						which is a multi-sheeted cover \(\{ x_{i = 1, \ldots, N} \}\) over \(C\).</li>
     						<li>\( \Sigma \) determines the low-energy physics of the theory. <span id="reference">[Seiberg, Witten (1994)]</span></li>
 						</ul>
@@ -249,6 +310,14 @@
 							<br/>
 							[3] a complex 1-dimensional curve called a Seiberg-Witten curve
 						</div>
+
+						<aside class="notes" data-markdown>
+							What we are going to do with those M-branes is we wrap them on a two-dimensional surface, more precisely a Riemann surface with punctures. 
+
+							When we wrap an M5-brane on such a surface, which is called a Seiberg-Witten curve Sigma, the remaining four-dimensional spacetime that comes from a high-level math of six minus two equals 4, becomes populated with a supersymmetric gauge theory, which you can imagine as a mathematical model of the real world particle physics. 
+
+							A nice thing is that the geometry of the Riemann surface determines the four-dimensional physics. This is one example of the interplay between physics and geometry in string theory.
+						</aside>
 					</section>
 
 					<section>
@@ -271,6 +340,14 @@
 							<br/>
 							[3] Seiberg-Witten differential
 						</div>
+
+						<aside class="notes" data-markdown>
+							So we got a theory, but what about particles living in the theory? 
+
+							A supersymmetric particle comes from an M2-brane whose boundary ends along a closed curve gamma on the two-dimensional Riemann surface Sigma.
+
+							Then the mass of the particle is given as an integral along the curve, and its charges are determined again from the geometry.
+						</aside>
 					</section>
 
 					<section>
@@ -288,6 +365,12 @@
 							<br/>
 							[1] of the class $\mathcal{S}$ theory determined by $f(z, x)$
 						</div>
+
+						<aside class="notes" data-markdown>
+							The boundary of such an M2-brane satisfies a differential equation shown here, thanks to supersymmetry. 
+
+							Then we can reverse the question, such that we first find the solutions of the differential equation on the Riemann surface and then find particles out of the geometric flows. This is the idea of spectral network, and that is today’s topic.
+						</aside>
 					</section>
 				
 					<section>
@@ -322,6 +405,14 @@
 									</div>
 								</div>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							So what can we do by finding particles of a theory? We are going to do supersymmetric spectroscopy!
+
+							First let me remind you what we learned in a high-school science class about spectroscopy. When we put a small amout of chemical compound into a torch we see a flame, and its color tells us about an atomic element in the compound. 
+
+							More quantitatively we can use a diffraction grating to the light of the flame to obtain an emission spectrum to identify an atomic element.
+						</aside>
 					</section>
 
 					<section>
@@ -352,7 +443,7 @@
 
 						<ul>
 							<li>Using spectral networks, we can find the particle<sup>1</sup> spectrum of a given supersymmetric theory<sup>2</sup>.
-							<li>We use the spectrum to identify what the theory is, which is useful when the theory is strongly coupled and we lack any perturbative approach to understand it.</li>
+							<li>We <b>use the spectrum to identify what the theory is</b>, which is useful when the theory is strongly coupled and we lack any perturbative approach to understand it.</li>
 						</ul>
 
 						<div id="footnote">
@@ -362,6 +453,10 @@
 							<br/>
 							[2] the BPS spectrum of a 4d $\mathcal{N} = 2$ theory of class $\mathcal{S}$ on the Coulomb branch
 						</div>
+
+						<aside class="notes" data-markdown>
+							The idea is the same: we obtain a spectrum of supersymmetric particles, then using the spectrum we try to identify what the theory that has such a spectrum is.
+						</aside>
 					</section>
 
 					<section>
@@ -373,6 +468,10 @@
 						<br/>
 						<iframe src="figures/loom_plots/pure_SU_3.html" style="width: 600px; height: 700px; float: left; vertical-align:middle;"></iframe>
 						<iframe src="figures/loom_plots/AD_from_pure_SU_3.html" style="width: 600px; height: 700px; float: left; vertical-align:middle;"></iframe>
+
+						<aside class="notes" data-markdown>
+							In practice, we generate a familiy of colorful networks called spectral networks, stare it until we spot a particle, do some taxonomy of them until we claim a victory.
+						</aside>
 					</section>
 				</section>
 
@@ -402,6 +501,12 @@
 						</div>
 
 						<img src="figures/SN_step_1.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+
+						<aside class="notes" data-markdown>
+							OK, enough of physics, now let me describe in detail what exactly the computational problem we want to solve. Every step that I describe here needs to be done using computer and is done by using various Python libraries.
+
+							First a technical detail is we first wrap the Riemann surface on another Riemann surface, in this case a sphere with punctures. Then there are branch points and cuts, which can be obtained by  solving the equation for the Riemann surface.
+						</aside>
 					</section>
 
 					<section data-transition="none" style="text-align: left;">
@@ -427,6 +532,10 @@
 						</div>
 
 						<img src="figures/SN_step_2.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+
+						<aside class="notes" data-markdown>
+							Then from a branch point we draw a curve, which is a flow determined by the previous differential equation. Then we draw another one, and so on.
+						</aside>
 					</section>
 
 					<section data-transition="none" style="text-align: left;">
@@ -451,6 +560,10 @@
 						</div>
 
 						<img src="figures/SN_step_3.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+
+						<aside class="notes" data-markdown>
+							There can be an intersection between two curves, and when they satisfy a certain mathematical condition, and for math aficionados the condition is that the roots of the curves sum up to another root of the Lie algebra associated with the theory, there is another curve coming out of the intersection.
+						</aside>
 					</section>
 
 					<section data-transition="none" style="text-align: left;">
@@ -475,6 +588,10 @@
 						</div>
 
 						<img src="figures/SN_step_4.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+
+						<aside class="notes" data-markdown>
+							And we repeat the iteration. 
+						</aside>
 					</section>
 					
 					<section data-transition="none" style="text-align: left;">
@@ -500,12 +617,16 @@
 						</div>
 
 						<img src="figures/full_SN.svg" width="400px" style="background:none; border:none; box-shadow:none; float: right;"/>
+
+						<aside class="notes" data-markdown>
+							The set of curves obtained this way is called a spectral network at theta, because we fixed a value of theta which is a parameter of the differential equation.
+						</aside>
 					</section>
 
 					<section>
 						<div style="width: 700px; float: left; text-align: left;">
 
-							<p>Now we generate a family of spectral networks for various values of $\theta$ between $0$ and $\pi$, and look for a topological change of the networks.</p>
+							<p>Now we <b>generate a family of spectral networks</b> for various values of $\theta$ between $0$ and $\pi$, and <b>look for a topological change</b> of the networks.</p>
 								
 								<div style="text-align: center; width: 300px; float: right;">
 									<img src="figures/hypermultiplet_3d.png" style="background:none; border: none; box-shadow:none;"/>
@@ -525,6 +646,12 @@
 
 						</div>
 						<iframe src="figures/loom_plots/single_hyper.html" style="width: 550px; height: 700px; float: right;"></iframe>
+
+						<aside class="notes" data-markdown>
+							Then we generate a family of spectral networks by drawing them for various values of theta, and study the evolution of the spectral networks as we change theta. 
+
+							For a certain value of theta, we can see there is something going on, technically there is a topological change in the network, and this moment corresponds to spotting a supersymmetric particle.
+						</aside>
 					</section>
 
 				</section>
@@ -540,21 +667,47 @@
 							</ul>
 							<li>I launched an open-source project $\texttt{loom}$ on GitHub and started a collaboration with string theorists working on spectral networks.</li>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							Now all the groundworks are laid down so let me tell you how loom is actually built. 
+
+							Before loom there were a few codes written in Mathematica, which is a favourite mathematics package among string theorists thanks to its user-friendly manipulation of symbolic math.
+
+							However a Mathematica code was not particularly convenient during collaborations and therefore each of us maintained separate codes which was an overlapping investment of time and effort.
+
+							Adding to that there is always the issue of the number of licenses available, and in practice the numerical accuracy of Mathematica was not good and its internal warnings and errors were hard to understand.
+
+							So I launched an open-source project loom on GitHub and started a collaboration with my friends working on spectral networks, hoping that we can converge our effort into a common project.
+						</aside>
 					</section>
 
 					<section>
 						<h2>Why I chose Python to write $\texttt{loom}$</h2>
 						<ul>
-							<li>Easy enough for my physicist colleagues without programming experience to learn, yet being a full-fledged standard programming language.</li>
+							<li><b>Easy</b> enough for my physicist colleagues without programming experience to learn, yet being <b>a full-fledged standard programming language</b>.</li>
 							<li>Open-source</li>
 								<ul>
 									<li>Can look into what's going on in the box when I want.</li>
-									<li>A type of software license that goes well with academic researches.</li>
+									<li>No need to second-guess an incomprehensible error message.</li>
 								</ul>
 							<li>Active and helpful Python community.</li>
 							<li>Diverse and powerful libraries, including a suite of scientific libraries provided by the SciPy stack.</li>
-							<li>Easy to work with SageMath to use its extensive math library.	</li>
+							<li>Easy to work with external libraries.</li>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							So why I chose Python to write loom? First of all, my ‘mother tongue’ is C, and at first I was thinking of writing a C module for Mathematica. 
+
+							However, after some experiments I decided to use Python, because it is easy enough for my colleagues without programming experience to learn, but at the same time is a full-fledged standard programming language.
+
+							All the libraries that I needed and used were open-source, meaning I can look into the box if I want and don’t have to second-guess an incomprehensible error message.
+
+							Of course an active and helpful Python community was a big factor. 
+
+							Diverse and powerful libraries, including SciPy stack, was another crucial factor.
+
+							And when I needed to use something outside Python libraries, including sagemath and C/C++ libraries, it was relatively painless to glue them into a Python program.
+						</aside>
 					</section>
 				</section>
 
@@ -575,6 +728,14 @@
 								<li>$\texttt{loom}$ calls SageMath via $\texttt{subprocess}$.</li>
 							</ul>	
 						</ul>
+
+						<aside class="notes" data-markdown>
+							Let me go through the gut of loom to give you the detail of what is used in which way. 
+
+							In our computational problem we need to deal with a symbolic equation representing a Riemann surface to find branch points and turn the symbolic equation into a differential equation.
+
+							Here SymPy is in the first line of fire, but sometimes we need more powerful math package, for example when the equation is too complicated or when we need the knowledge of a representation of a Lie algebra. Then we use sagemath, and it’s done by Python’s subprocess module calling a sagemath code.
+						</aside>
 					</section>
 					
 					<section>
@@ -596,6 +757,12 @@
 								<li> Python is great in glueing the C++ library into $\texttt{loom}$.</li>
 							</ul>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							Then it’s time to solve the differential equation, and of course we use SciPy and NumPy for that purpose. Everything was easy and fast, actually to my surprise, largely thanks to NumPy’s ndarray having a contiguous memory model and utilizing vectorized operation on the data.
+
+							Then there is the issue of finding intersections of the curves, each of which is actually a set of points. At first I used a neat trick of using interpolation which was done entirely using SciPy and NumPy, but this was neither robust nor fast, mainly due to my clumsy implementation. Then I found a C++ library called CGAL that is perfect for such a task, and Python was great in glueing the library into loom.
+						</aside>
 					</section>
 
 					<section>
@@ -613,22 +780,40 @@
 								<li>Use of $\texttt{logging}$ and $\texttt{multiprocessing.Queue}$ makes it easy to deliver messages from the core module to the front-end.</li>
 							</ul>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							Generating a family of spectral networks is a naturally parallelizable task. But on the other hand each worker has to share nontrivial amount of data regarding the geometry of the Riemann surface and then transfer quite a large amount of data to the main process, so on so worker processes cannot be totally isolated. 
+
+							But Python has a native support of multiprocessing, with which it was quite easy to boost the throughput of loom linealry with the number of CPUs available. For example the high energy theory group at Rutgers where I am working now has a couple of nice 40-core machines and loom is happily dwelling on one of the workstations.
+
+							After having multiprocessing going on, the next issue is how to gather log messages from the worker processes and send them to users. At first it looked like a difficult task, but combining Python’s logging module with multiprocessing.Queue achieved such a goal with a small amount of effort.
+						</aside>
 					</section>
 
 					<section>
 						<h3>Data storage</h3>
 						<ul>
-							<li>$\texttt{loom}$ carries a large data (~1GB) in various types when studying a complicated spectral network. It takes hours to generate such a data, so it is crucial for a successful research and collaboration to efficiently save and load the data.</li>
+							<!-- <li>$\texttt{loom}$ carries a large data (~1GB) in various types when studying a complicated spectral network. It takes hours to generate such a data, so it is crucial for a successful research and collaboration to efficiently save and load the data.</li> -->
+
+							<li>When studying a spectral network, $\texttt{loom}$ generates a large data (~1GB) in various types. This takes a couple of hours, so it is crucial to efficiently save and load the data.</li>
 							
-							<li>Various parameters, both symbolic and numeric, are conveniently managed using a configuration file formatted by $\texttt{ConfigParser}$.</li>
+							<li>Various symbolic and numerical parameters are conveniently managed using a configuration file formatted by $\texttt{ConfigParser}$.</li>
 							
 							<li>JSON</li>
 							<ul>
-								<li>Although $\texttt{pickle}$ is useful when saving data in the middle of debugging, the excellent portability of JSON and Python's support for it is very important as my collaboration includes Linux, Mac, and Windows users.</li>
+								<li>The portability of JSON across platforms is important during a collaboration and Python's support for JSON makes its usage convenient.</li>
 								<li>Unexpectedly fast when saving and loading a large data, and Python's support for $\texttt{threading}$ makes an IO delay essentially nonexsitent.</li>
-								<li>One downside of using a JSON data is its large size due to the format, however using $\texttt{zipfile}$ to create an archived file in memory eased the burden quite a bit.</li>
+								<li>The size of JSON data is large due to its format, but using $\texttt{zipfile}$ to create a compressed file on memory makes its transfer over the network less burdensome.</li>
 							</ul>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							Usually loom generates data of the order of gigabytes when studying complicated spectral networks, and it takes a couple of hours to generate the data, so without saving and/or loading such data, doing research, letting alone collaborations, is impractical. And the data is not a byte stream, it’s a mixture of symbolic math formulas and numerical parameters for the configuration and generated data in a hierarchical way representing the rich structure of spectral networks.
+
+							For the configuration part of the data, Python’s ConfigParser was a great help. 
+
+							For the generated data, I chose JSON for the compatibility across platforms, and saving it in JSON and loading the saved file was very convenient and unexpectedly fast, considering we are saving and loading structured data. When combined with Python’s threading module, the IO delay was essentially nonexistent. One downside of JSON data is its large size as it is a plain text format, but using Python’s zipfile to create a compressed file on memory eased the burden of downloading such a large data via web quite a lot.
+						</aside>
 					</section>
 
 				</section>
@@ -647,6 +832,10 @@
 						<iframe src="figures/loom_plots/plot_example_bokeh.html" style="width: 550px; height: 600px; float: left;"></iframe>
 
 						<img src="figures/plot_example_matplotlib.svg" style="width: 550px; background:none; border: none; box-shadow:none; float: right;"/>
+
+						<aside class="notes" data-markdown>
+							Then let me proceed to the frontend of loom. The most important part of it is of course the visualization of generate data, and both Bokeh and matplotlib were used. Bokeh is great in producing a self-contained HTML plot with interactability as we can see here with zooming and tooltip and so on, and matplotlib is useful when debugging thanks to its full customizability and also when producing a vector graphics for research papers. 
+						</aside>
 					</section>
 
 					<section>
@@ -657,19 +846,33 @@
 							<li>Labeling the information of each object in a plot is done using $\texttt{mpldatacursor}$.</li>
 						</ul>
 						<img src="figures/loom_desktop.png" style="height: 500px; background:none; border: none; box-shadow:none;"/>
+
+						<aside class="notes" data-markdown>
+							When running loom on a local machine, it is convenient to have a GUI, which was implemented using Tkinter.
+						</aside>
 					</section>
 
 					<section>
 						<h3>Web application &amp; UI</h3>
 						<ul>
-							<li>To help friend theorists to use $\texttt{loom}$ without learning and/or installing Python, I built a WSGI application based on Flask that runs on an Apache web server and manages multiple instances of $\texttt{loom}$ processes.</li>
+							<li>To help friend theorists to use $\texttt{loom}$ without learning and/or installing Python, I built <b>a WSGI application based on Flask</b> that runs on an Apache web server and <b>manages multiple instances of $\texttt{loom}$ processes</b>.</li>
 							<li>Web UI is implemented using JavaScript and callbacks for Bokeh, as well as Server-Sent Events (SSE) for receiving messages from $\texttt{loom}$.</li>
 						</ul>
+
+						<aside class="notes" data-markdown>
+							But more emphasis was put on constructing a web frontend and web UI, because many of my collaborators found it difficult to install various libraries so I wanted to prepare a system and let my colleagues access it via web. So a web frontend was built using Flask as a WSGI application running on an Apache web server, and the web application manages multiple instances of loom processes.
+
+							Then the web UI is implemented using JavaScript and Bokeh’s callback functions, and server-sent events were used to send log messages to client web browsers.
+						</aside>
 					</section>
 
 					<section>
 						<br/><br/>
 						<iframe src="http://chan.physics.rutgers.edu/loom/config" style="border: 1px black solid; width: 1280px; height: 850px;"></iframe>
+
+						<aside class="notes" data-markdown>
+							So here let me show you again the web UI of loom.
+						</aside>
 					</section>
 
 				</section>
@@ -685,6 +888,14 @@
 							<li>Andy Neitzke at UT Austin, who is one of the pioneers in the study of spectral networks and has been inputting great feedbacks to $\texttt{loom}$.</li>
 						</ul>
 					</ul>
+
+					<aside class="notes" data-markdown>
+						In the end loom enabled us to finish one project and more are on the way, and loom is actively used by a few researchers. So I would say that Python provides a wonderful suite of libraries useful to theoretical physicists.
+
+						As of now, Mathematica is the most popular tool for computational analysis among string theorists thanks to its user friendliness. But we do wish to have an open-source alternative and I see a great potential in Python, SageMath, and Jupyter.
+
+						Lastly let me thanks my collaborators Pietro and Andy, whose contribution was crucial for this project.
+					</aside>
 				</section>
 
 				<section>
@@ -694,6 +905,10 @@
 						<li>The preprint of the paper studying physics using $\texttt{loom}$ is available at <a href="http://arxiv.org/abs/1601.02633">http://arxiv.org/abs/1601.02633</a>.</li>
 						<li>One of the physics talk slides based on $\texttt{loom}$ and the paper is at <a href="http://chan.physics.rutgers.edu/reveal.js/perimeter.html">http://chan.physics.rutgers.edu/reveal.js/perimeter.html</a>.</li>
 					</ul>
+
+					<aside class="notes" data-markdown>
+						You can find more information at these places, or visit chan.physics.rutgers.edu/scipy2016 where I will put everything I mentioned during the talk for a conveniet access.
+					</aside>
 				</section>
 
 			</div>
