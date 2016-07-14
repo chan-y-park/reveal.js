@@ -221,7 +221,7 @@
 -->
 						<img src="figures/strings_and_D_branes.png" style="width: 400px; background:none; border:none; box-shadow:none;"/>
 						<ul>
-							<li>High-energy theory, more commonly known as theoretical particle physics, is a study to understand fundamental forces of nature.</li>
+							<li>Theoretical high-energy physics, more commonly known as theoretical particle physics, is a study to understand fundamental forces of nature.</li>
 							<li>It includes <b>string theory</b>, which is an effort to build <b>a physical and mathematical framework to describe the fundamental forces in a unified way</b>.</li>
 						</ul>
 
@@ -678,7 +678,8 @@
 						<ul>
 							<li>Previously there were several Mathematica codes for generating spectral networks.</li>
 							<ul>
-								<li>Could not collaborate effectively, also overlapping investment of time and effort to maintain separate codes.</li>
+								<li>Overlapping investment of time and effort to maintain separate codes.</li>
+								<li>Difficulty in a collaborative development of a Mathematica program.</li>
 								<li>Issues with the number of licenses available, with the accuracy and efficiency of numerical calculations, and with hard-to-understand internal warnings and errors.</li>
 							</ul>
 							<li>I launched an open-source project $\texttt{loom}$ on GitHub and started a collaboration with string theorists working on spectral networks.</li>
@@ -792,16 +793,17 @@
 					<section>
 						<h3>Parallelization</h3>
 						<ul>
-							<li>$\texttt{multiprocessing}$</li>
+							<li>Multiprocessing</li>
 						    <ul>
 						    	<li>Generating a family of spectral networks is naturally a collection of parallel jobs that are managed as a pool of worker processes.</li>
-						    	<li>Python has a native support of multiprocessing, which boosts the throughput of $\texttt{loom}$ linearly with the number of available CPU's.</li>
+						    	<li>Using Python's $\texttt{multiprocessing}$ boosts the throughput of $\texttt{loom}$ linearly with the number of available CPU's.</li>
 							</ul>
 							
-							<li>$\texttt{logging}$</li>
+							<li>Inter-process communication</li>
 							<ul>
+								<li>Mutiple worker processes exchange data with the host process.</li>
 								<li>The core of $\texttt{loom}$ and its front-end are separated into different processes, both for multiprocessing and for the implementation of UI's.</li>
-								<li>Use of $\texttt{logging}$ and $\texttt{multiprocessing.Queue}$ makes it easy to deliver messages from the core module to the front-end.</li>
+								<li>Use of $\texttt{logging}$ and $\texttt{multiprocessing.Queue}$ makes it easy to deliver messages and data between different processes.</li>
 							</ul>
 						</ul>
 
@@ -934,6 +936,9 @@
 						<li>The preprint of the paper studying physics using $\texttt{loom}$ is available at <a href="http://arxiv.org/abs/1601.02633">http://arxiv.org/abs/1601.02633</a>.</li>
 						<li>One of the physics talk slides based on $\texttt{loom}$ and the paper is at <a href="http://chan.physics.rutgers.edu/reveal.js/perimeter.html">http://chan.physics.rutgers.edu/reveal.js/perimeter.html</a>.</li>
 					</ul>
+					<div style="display:block; height: 300px;">
+						<img src="figures/chan_scipy2016_url_qr_code.png" style="background:none; box-shadow:none; border:none; vertical-align:middle;"/>
+					</div>
 
 					<aside class="notes" data-markdown>
 						You can find more information at these places, or visit chan.physics.rutgers.edu/scipy2016 where I will put everything I mentioned during the talk for a conveniet access.
